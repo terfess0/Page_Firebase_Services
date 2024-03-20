@@ -15,7 +15,6 @@ async function cerrarSesion(){
     .catch((error) => {
         alert('Sesion no creada')
     })
-
 }
 
 window.addEventListener('DOMContentLoaded', async() =>{
