@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar sesión</title>
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            background-image: url('Resource/background_login.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+        }
+
+        .login-container h2 {
+            text-align: center;
+        }
+
+        .login-container input {
+            margin-bottom: 10px;
+        }
+
+        .alerta {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div id="success-alert" class="alerta alert alert-success" style="display: none;">
+        <strong>¡Éxito!</strong> Sesión cerrada exitosamente.
+    </div>
+    <div class="container-center text-center">
+        <div class="login-container">
+            <h2>Iniciar sesión en Terfess 👩‍🦲</h2>
+            <input type="text" class="form-control" id="usuario" placeholder="Usuario" required>
+            <div class="input-group">
+                <input type="password" class="form-control" id="password" placeholder="Contraseña" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block mt-3" id="login_btn">Iniciar sesión</button>
+            <div>
+                <a href="Templates/recuperar_contraseña.html">¿Olvidaste tu contraseña?</a>
+                <br>
+                <a href="Templates/register_user.html">Registrate</a>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="Services/autentication.js"></script>
+
+    <script>
+        // Función para limpiar los valores de los campos de entrada
+        function limpiarCampos() {
+            document.getElementById('usuario').value = ''; // Limpiar el campo de usuario
+            document.getElementById('password').value = ''; // Limpiar el campo de contraseña
+        }
+    
+        // Llamar a la función para limpiar los campos cuando se cargue la página
+        document.addEventListener('DOMContentLoaded', function() {
+            limpiarCampos();
+        });
+    </script>
+</body>
+
+</html>

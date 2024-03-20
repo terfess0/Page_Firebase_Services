@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Olvidaste tu contraseña</title>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('Resource/background_login.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .forgot-password-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 300px;
+        }
+        .forgot-password-container h2 {
+            text-align: center;
+        }
+        .forgot-password-container input {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-center text-center">
+        <div class="forgot-password-container">
+            <h2>Olvidaste tu contraseña</h2>
+            <input type="email" class="form-control" id="email" placeholder="Correo electrónico" required>
+            
+            <button type="button" class="btn btn-primary btn-block mt-3" onclick="sendResetLink()">Enviar enlace de restablecimiento</button>
+            <div>
+                <a href="../index.html">Volver a iniciar sesión</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function sendResetLink() {
+            const emailInput = document.getElementById('email');
+
+            if (emailInput.value.trim() === '') {
+                alert('Por favor, ingresa tu correo electrónico.');
+                return;
+            }
+
+            // Aquí puedes agregar la lógica para enviar el enlace de restablecimiento de contraseña.
+            alert('Se ha enviado el enlace de restablecimiento de contraseña a tu correo electrónico.');
+        }
+    </script>
+</body>
+</html>
