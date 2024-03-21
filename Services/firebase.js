@@ -50,3 +50,8 @@ export const userState = () => {
         }
     });
 }
+
+//registro
+export const registerauth = (email, password) =>
+createUserWithEmailAndPassword(auth, email, password)
+

@@ -40,31 +40,16 @@
             <h2>Registrarse</h2>
             <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
             <input type="text" class="form-control" id="apellido" placeholder="Apellido" required>
-            <input type="email" class="form-control" id="email" placeholder="Correo electrónico" required>
-            <input type="password" class="form-control" id="contraseña" placeholder="Contraseña" required>
+            <input type="email" class="form-control" id="emailR" placeholder="Correo electrónico" required>
+            <input type="password" class="form-control" id="contraseñaR" placeholder="Contraseña" required>
             
-            <button type="button" class="btn btn-success btn-block mt-3 disabled" onclick="register()">Registrarse</button>
+            <button type="submit" class="btn btn-success btn-block mt-3" id="btn_register">Registrate</button></a>
             <div>
                 <a href="../index.html">Volver a iniciar sesión</a>
             </div>
         </div>
     </div>
 
-    <script>
-        function register() {
-            const nombreInput = document.getElementById('nombre');
-            const apellidoInput = document.getElementById('apellido');
-            const emailInput = document.getElementById('email');
-            const contraseñaInput = document.getElementById('contraseña');
-
-            if (nombreInput.value.trim() === '' || apellidoInput.value.trim() === '' || emailInput.value.trim() === '' || contraseñaInput.value.trim() === '') {
-                alert('Por favor, complete todos los campos.');
-                return;
-            }
-
-            // Aquí puedes agregar la lógica para enviar los datos de registro.
-            alert('Registro exitoso.');
-        }
-    </script>
+    <script type="module" src="../Services/register_user.js"></script>
 </body>
 </html>

@@ -3,11 +3,16 @@ import { registerauth } from "../Services/firebase.js"
 const save_auth = document.getElementById('btn_register')
 
 async function register() {
-    const nombreInput = document.getElementById('nombre');
-    const apellidoInput = document.getElementById('apellido');
-    const emailInput = document.getElementById('email');
-    const contraseñaInput = document.getElementById('contraseña');
+    const nombreInput = document.getElementById('nombre').value
+    const apellidoInput = document.getElementById('apellido').value
+    const emailInput = document.getElementById('emailR').value
+    const contraseñaInput = document.getElementById('contraseñaR').value
 
+    if (nombreInput.trim() === '' || apellidoInput.trim() === '' || emailInput.trim() === '' || contraseñaInput.trim() === '') {
+        alert('Por favor, complete todos los campos.');
+        return;
+    }
+    
     const validar = registerauth(emailInput, contraseñaInput)
     const verificar = await validar
 
