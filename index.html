@@ -44,6 +44,7 @@
         }
     </style>
 </head>
+
 <body>
     <div id="success-alert" class="alerta alert alert-success" hidden>
         <strong>¡Éxito!</strong> Sesión cerrada exitosamente.
@@ -73,9 +74,9 @@
             document.getElementById('usuario').value = ''; // Limpiar el campo de usuario
             document.getElementById('password').value = ''; // Limpiar el campo de contraseña
         }
-    
+
         // Llamar a la función para limpiar los campos cuando se cargue la página
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             limpiarCampos();
         });
     </script>

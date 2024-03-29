@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,37 +20,113 @@
             justify-content: center;
             align-items: center;
         }
+
         .register-container {
             background-color: rgba(255, 255, 255, 0.8);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            width: 300px;
+            width: 400px;
         }
+
         .register-container h2 {
             text-align: center;
         }
+
         .register-container input {
             margin-bottom: 10px;
         }
     </style>
 </head>
+
 <body>
     <div class="container-center text-center">
         <div class="register-container">
             <h2>Registrarse</h2>
             <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
             <input type="text" class="form-control" id="apellido" placeholder="Apellido" required>
+
             <input type="email" class="form-control" id="emailR" placeholder="Correo electrónico" required>
+
+            <input type="email" class="form-control" id="emailConfirm" placeholder="Confirmar correo electrónico"
+                required>
+            <div id="error-email" style="color: red;"></div>
+
             <input type="password" class="form-control" id="contraseñaR" placeholder="Contraseña" required>
-            
+
+            <input type="password" class="form-control" id="contraseñaConfirm" placeholder="Confirmar contraseña"
+                required>
+            <div id="error-contraseña" style="color: red;"></div>
+            <div id="error" style="color: red;"></div>
+            <br>
             <button type="submit" class="btn btn-success btn-block mt-3" id="btn_register">Registrate</button></a>
+            <br>
             <div>
-                <a href="../index.html">Volver a iniciar sesión</a>
+                <a href="../index.html">Volver</a>
             </div>
+
         </div>
     </div>
 
-    <script type="module" src="../Services/register_user.js"></script>
+
+
+    <script type="text/javascript">
+
+        document.getElementById("btn_register").addEventListener("click", async function (event) {
+            var nombre = document.getElementById("nombre").value;
+            var apellido = document.getElementById("apellido").value;
+            var email = document.getElementById("emailR").value;
+            var emailConfirm = document.getElementById("emailConfirm").value;
+            var contraseña = document.getElementById("contraseñaR").value;
+            var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
+            var errorEmail = "";
+            var errorContra = "";
+            var errorEmpty = "";
+            var errorGeneral = document.getElementById("error");
+            var errorCorreo = document.getElementById("error-email");
+            var errorPassw = document.getElementById("error-contraseña");
+
+            //limpiar anuncios de errores
+            errorGeneral.innerHTML = "";
+            errorCorreo.innerHTML = "";
+            errorPassw.innerHTML = "";
+
+            if (nombre === "" || apellido === "" || email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "") {
+                errorEmpty += "Todos los campos son obligatorios.<br>";
+            }else if (email.indexOf("@") === -1) {
+                errorEmail += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
+            }else if (email !== emailConfirm) {
+                errorEmail += "Los correos electrónicos no coinciden.<br>";
+            }
+            else if (contraseña.length < 8 || contraseñaConfirm.length < 8) {
+                errorContra += "La contraseña debe tener al menos 8 caracteres.<br>";
+            }
+            else if (contraseña !== contraseñaConfirm) {
+                errorContra += "Las contraseñas no coinciden.<br>";
+            }
+            
+
+            // Si hay errores, mostrar los mensajes y evitar el envío del formulario
+            if (errorEmpty !== "" || errorEmail !== "" || errorContra !== "") {
+                console.log("comprobando campos");
+                if (errorEmpty !== "") {
+                    errorGeneral.innerHTML = errorEmpty;
+                }
+                if (errorEmail !== "") {
+                    errorCorreo.innerHTML = errorEmail;
+                }
+                if (errorContra !== "") {
+                    errorPassw.innerHTML = errorContra;
+                }
+                event.preventDefault(); // Evita que el formulario se envíe si hay errores
+            } else {
+                console.log("esta verificado");
+                window.verificado = true;
+            }
+        });
+    </script>
+
+
 </body>
+
 </html>
