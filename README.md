@@ -10,7 +10,7 @@ Descripción breve del proyecto.
 
 ## Tecnologías Utilizadas
 
-- Lenguaje de Programación: Javascript, HTML, CSS
+- Lenguaje de Programación: Javascript, HTML
 - Base de Datos: Firebase
 
 ## Instalación
