@@ -4,8 +4,8 @@ const caja = document.getElementById('formreg')
 
 caja.addEventListener('submit', (e) =>{
 
-    const email = document.getElementById('usuario').value
-    const password = document.getElementById('password').value
+    const email = caja['usuario'].value
+    const password = caja['password'].value
 
     if (email.trim() === '' || password.trim() === '') {
         alert("Debe llenar los campos de usuario y el de contraseña.")
