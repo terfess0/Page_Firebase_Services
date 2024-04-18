@@ -39,31 +39,31 @@ const actionCodeSettings = {
     // This must be true.
     handleCodeInApp: true,
     iOS: {
-      bundleId: 'com.example.ios'
+        bundleId: 'com.example.ios'
     },
     android: {
-      packageName: 'com.example.android',
-      installApp: true,
-      minimumVersion: '12'
+        packageName: 'com.example.android',
+        installApp: true,
+        minimumVersion: '12'
     },
     dynamicLinkDomain: 'example.page.link'
-  };
+};
 
-export const enviarCorreoVerifi = (email) => {
+export const enviarCorreoVerifi = (email) => 
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
-  .then(() => {
-    // The link was successfully sent. Inform the user.
-    // Save the email locally so you don't need to ask the user for it again
-    // if they open the link on the same device.
-    window.localStorage.setItem('emailForSignIn', email);
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ...
-  });
-}
+        .then(() => {
+            // The link was successfully sent. Inform the user.
+            // Save the email locally so you don't need to ask the user for it again
+            // if they open the link on the same device.
+            window.localStorage.setItem('emailForSignIn', email);
+            // ...
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // ...
+        });
+
 //metodo de autenticacion de usuario
 export const login_auth = (email, password) =>
     signInWithEmailAndPassword(auth, email, password)
@@ -85,5 +85,5 @@ export const userState = () => {
 
 //registro
 export const registerauth = (email, password) =>
-createUserWithEmailAndPassword(auth, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
 

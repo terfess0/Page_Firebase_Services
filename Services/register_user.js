@@ -7,7 +7,7 @@ async function register() {
         const emailInput = document.getElementById('emailR').value
         const contraseñaInput = document.getElementById('contraseñaR').value
         
-        enviarCorreoVerifi(emailInput)
+        const enviareEmail = enviarCorreoVerifi(emailInput)
         const validar = registerauth(emailInput, contraseñaInput)
         const verificar = await validar
 
