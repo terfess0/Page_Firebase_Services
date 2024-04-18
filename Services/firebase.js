@@ -52,17 +52,15 @@ const actionCodeSettings = {
 export const enviarCorreoVerifi = (email) => 
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
-            // The link was successfully sent. Inform the user.
-            // Save the email locally so you don't need to ask the user for it again
-            // if they open the link on the same device.
-            window.localStorage.setItem('emailForSignIn', email);
+            alert("Todo bien")
             // ...
         })
         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            const errorCode = error.code
+            const errorMessage = error.message
+            alert("Todo mal")
             // ...
-        });
+        })
 
 //metodo de autenticacion de usuario
 export const login_auth = (email, password) =>
