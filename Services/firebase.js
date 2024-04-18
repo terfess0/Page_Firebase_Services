@@ -49,7 +49,7 @@ const actionCodeSettings = {
     dynamicLinkDomain: 'example.page.link'
   };
 
-export const enviarCorreoVerifi = (email, actionCodeSettings) => {
+export const enviarCorreoVerifi = (email) => {
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
   .then(() => {
     // The link was successfully sent. Inform the user.
