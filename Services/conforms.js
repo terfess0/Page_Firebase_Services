@@ -13,7 +13,7 @@ async function validar() {
     }
 
     const verification = await login_auth(email, password)
-    const validation = await verificar
+    const validation = await verification
 
     if (verification != null) {
         alert("Usuario autenticado: " + email)
