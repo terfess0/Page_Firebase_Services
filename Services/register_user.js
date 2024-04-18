@@ -1,4 +1,4 @@
-import { registerauth } from "../Services/firebase.js"
+import { registerauth, enviarCorreoVerifi } from "../Services/firebase.js"
 
 const save_auth = document.getElementById('btn_register')
 
@@ -6,7 +6,8 @@ async function register() {
     if (window.verificado === true) {
         const emailInput = document.getElementById('emailR').value
         const contraseñaInput = document.getElementById('contraseñaR').value
-
+        
+        sendSignInLinkToEmail()
         const validar = registerauth(emailInput, contraseñaInput)
         const verificar = await validar
 
