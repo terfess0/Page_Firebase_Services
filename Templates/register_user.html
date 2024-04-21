@@ -41,9 +41,6 @@
     <div class="container-center text-center">
         <div class="register-container">
             <h2>Registrarse</h2>
-            <input type="text" class="form-control" id="nombre" placeholder="Nombre" required>
-            <input type="text" class="form-control" id="apellido" placeholder="Apellido" required>
-
             <input type="email" class="form-control" id="emailR" placeholder="Correo electrónico" required>
 
             <input type="email" class="form-control" id="emailConfirm" placeholder="Confirmar correo electrónico"
@@ -71,8 +68,6 @@
     <script type="text/javascript">
 
         document.getElementById("btn_register").addEventListener("click", async function (event) {
-            var nombre = document.getElementById("nombre").value;
-            var apellido = document.getElementById("apellido").value;
             var email = document.getElementById("emailR").value;
             var emailConfirm = document.getElementById("emailConfirm").value;
             var contraseña = document.getElementById("contraseñaR").value;
@@ -89,7 +84,7 @@
             errorCorreo.innerHTML = "";
             errorPassw.innerHTML = "";
 
-            if (nombre === "" || apellido === "" || email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "") {
+            if (email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "") {
                 errorEmpty += "Todos los campos son obligatorios.<br>";
             }else if (email.indexOf("@") === -1) {
                 errorEmail += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
