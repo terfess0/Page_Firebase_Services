@@ -6,30 +6,25 @@ async function register() {
     if (window.verificado === true) {
         const emailInput = document.getElementById('emailR').value
         const contraseñaInput = document.getElementById('contraseñaR').value
-        
-        const enviareEmail = enviarCorreoVerifi(emailInput)
-        const validar = registerauth(emailInput, contraseñaInput)
-        const verificar = await validar
 
-            .then((verificar) => {
-                alert("El usuario se registro exitosamente..")
-                const user = verificar.user;
-                window.location.href = "../index.html"
-            })
+        try {
+            await enviarCorreoVerifi(emailInput);
 
-            .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') {
-                    alert("Este correo electrónico ya está en uso. Por favor, utiliza otro.")
-                } else if(error.code === 'auth/invalid-email') {
-                    alert("Correo invalido, sigue el formato: ejemplo@example.com")
-                }else{
-                    alert("Hubo un error, intenta de nuevo más tarde.")
-                    console.error(error)
-                }
-            })
+            const verificar = await registerauth(emailInput, contraseñaInput);
+            alert("El usuario se registró exitosamente.");
+            window.location.href = "../index.html";
+        } catch (error) {
+            if (error.code === 'auth/email-already-in-use') {
+                alert("Este correo electrónico ya está en uso. Por favor, utiliza otro.");
+            } else if (error.code === 'auth/invalid-email') {
+                alert("Correo inválido, sigue el formato: ejemplo@example.com");
+            } else {
+                alert("Hubo un error, intenta de nuevo más tarde.");
+                console.error(error);
+            }
+        }
     }
 }
-
 
 window.addEventListener('DOMContentLoaded', () => {
     save_auth.addEventListener('click', register);

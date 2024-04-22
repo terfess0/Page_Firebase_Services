@@ -32,19 +32,7 @@ const auth = getAuth(app);
 const providerGoogle = new GoogleAuthProvider();
 const providerFacebook = new FacebookAuthProvider();
 
-const actionCodeSettings = {
-    url: 'https://www.example.com/finishSignUp?cartId=1234',
-    handleCodeInApp: true,
-    iOS: {
-        bundleId: 'com.example.ios'
-    },
-    android: {
-        packageName: 'com.example.android',
-        installApp: true,
-        minimumVersion: '12'
-    },
-    dynamicLinkDomain: 'example.page.link'
-};
+
 // Iniciando con Facebook
 export const popup_facebook = () =>
     signInWithPopup(auth, providerFacebook)
@@ -94,17 +82,36 @@ export const popup = () => {
             throw error; // Re-lanzar el error para manejarlo en el código que llama a esta función
         });
 };
+//enviar correo verificacion registro
+const actionCodeSettings = {
+    url: 'https://terfess0.github.io/ApiWebNube/Templates/home.html',
+    handleCodeInApp: true,
+    iOS: {
+        bundleId: 'com.example.ios'
+    },
+    android: {
+        packageName: 'com.example.android',
+        installApp: true,
+        minimumVersion: '12'
+    },
+    dynamicLinkDomain: 'example.page.link'
+}
+
 
 export const enviarCorreoVerifi = (email) =>
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
-            alert("Todo bien")
+            alert("Correo de verificación enviado correctamente.")
         })
         .catch((error) => {
             const errorCode = error.code
+            console.log(errorCode)
             const errorMessage = error.message
-            alert("Todo mal")
+            alert("Error al enviar el correo de verificación: " + errorMessage)
         })
+
+
+        //---------------------------------
 
 //metodo de autenticacion de usuario
 export const login_auth = (email, password) =>
