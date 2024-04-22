@@ -45,32 +45,38 @@ const actionCodeSettings = {
     },
     dynamicLinkDomain: 'example.page.link'
 };
-
-//iniciando con facebook
+// Iniciando con Facebook
 export const popup_facebook = () =>
     signInWithPopup(auth, providerFacebook)
         .then((result) => {
-            // The signed-in user info.
+            // El usuario ha iniciado sesión exitosamente
             const user = result.user;
 
-            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            // Esto te da un token de acceso de Facebook. Puedes usarlo para acceder a la API de Facebook.
             const credential = FacebookAuthProvider.credentialFromResult(result);
             const accessToken = credential.accessToken;
 
-            // IdP data available using getAdditionalUserInfo(result)
-            // ...
+            // Retorna el token de acceso
+            return accessToken;
         })
         .catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.customData.email;
-            // The AuthCredential type that was used.
-            const credential = FacebookAuthProvider.credentialFromError(error);
+            // Manejar errores
+            console.error("Error al iniciar sesión con Facebook:", error);
 
-            // ...
+            // Puedes manejar errores específicos aquí para proporcionar mensajes de error más útiles al usuario
+            let errorMessage;
+            switch (error.code) {
+                case "auth/account-exists-with-different-credential":
+                    errorMessage = "Ya existe una cuenta asociada con este correo electrónico. Por favor, inicia sesión con otro método.";
+                    break;
+                default:
+                    errorMessage = "Error al iniciar sesión con Facebook. Por favor, inténtalo de nuevo más tarde.";
+                    break;
+            }
+
+            throw new Error(errorMessage);
         });
+
 
 //iniciando y registrandose con google
 export const popup = () => {
