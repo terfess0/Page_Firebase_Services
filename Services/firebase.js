@@ -98,8 +98,8 @@ const actionCodeSettings = {
 }
 
 
-export const enviarCorreoVerifi = () =>
-    sendSignInLinkToEmail(auth.currentUser)
+export const enviarCorreoVerifi = (email) =>
+    sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
             alert("Correo de verificación enviado correctamente.")
         })
