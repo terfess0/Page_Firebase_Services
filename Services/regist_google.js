@@ -1,6 +1,6 @@
 import { popup } from "../Services/firebase.js";
 
-const btnloggoogle = document.getElementById("btn_log_google");
+const btnregistgoogle = document.getElementById("btn_regist_google");
 
 async function log_google() {
     try {
@@ -24,9 +24,10 @@ async function log_google() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-    btnloggoogle.addEventListener('click', async (e) => {
-        console.log("login google");
+    btnregistgoogle.addEventListener('click', async (e) => {
+        console.log("registro google");
         e.preventDefault(); 
-        await log_google();
+        await log_google(); 
     });
+
 });
