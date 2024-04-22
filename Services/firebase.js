@@ -86,15 +86,6 @@ export const popup = () => {
 const actionCodeSettings = {
     url: 'https://terfess0.github.io/ApiWebNube/Templates/home.html',
     handleCodeInApp: true,
-    iOS: {
-        bundleId: 'com.example.ios'
-    },
-    android: {
-        packageName: 'com.example.android',
-        installApp: true,
-        minimumVersion: '12'
-    },
-    dynamicLinkDomain: 'example.page.link'
 }
 
 
