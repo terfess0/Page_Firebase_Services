@@ -9,7 +9,9 @@ import {
     signOut,
     onAuthStateChanged,
     createUserWithEmailAndPassword,
-    sendSignInLinkToEmail
+    sendSignInLinkToEmail,
+    signInWithPopup,
+    GoogleAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -32,6 +34,9 @@ const analytics = getAnalytics(app);
 // Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
+// Crear el proveedor de Google
+const provider = new GoogleAuthProvider();
+
 const actionCodeSettings = {
     // URL you want to redirect back to. The domain (www.example.com) for this
     // URL must be in the authorized domains list in the Firebase Console.
@@ -49,7 +54,28 @@ const actionCodeSettings = {
     dynamicLinkDomain: 'example.page.link'
 };
 
-export const enviarCorreoVerifi = (email) => 
+export const popup = () =>
+    signInWithPopup(auth, provider)
+        .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            // IdP data available using getAdditionalUserInfo(result)
+            // ...
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.customData.email;
+            // The AuthCredential type that was used.
+            const credential = GoogleAuthProvider.credentialFromError(error);
+            // ...
+        });
+
+export const enviarCorreoVerifi = (email) =>
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
             alert("Todo bien")
