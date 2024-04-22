@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
 
@@ -11,13 +10,10 @@ import {
     createUserWithEmailAndPassword,
     sendSignInLinkToEmail,
     signInWithPopup,
-    GoogleAuthProvider
+    GoogleAuthProvider,
+    FacebookAuthProvider
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
     apiKey: "AIzaSyChViHU9-o0bPiKxVrakSgrrGUBrcBs39M",
     authDomain: "apiweb-a6b44.firebaseapp.com",
@@ -31,17 +27,13 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-// Initialize Firebase Authentication and get a reference to the service
 const auth = getAuth(app);
 
-// Crear el proveedor de Google
-const provider = new GoogleAuthProvider();
+const providerGoogle = new GoogleAuthProvider();
+const providerFacebook = new FacebookAuthProvider();
 
 const actionCodeSettings = {
-    // URL you want to redirect back to. The domain (www.example.com) for this
-    // URL must be in the authorized domains list in the Firebase Console.
     url: 'https://www.example.com/finishSignUp?cartId=1234',
-    // This must be true.
     handleCodeInApp: true,
     iOS: {
         bundleId: 'com.example.ios'
@@ -53,27 +45,46 @@ const actionCodeSettings = {
     },
     dynamicLinkDomain: 'example.page.link'
 };
-export const popup = () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider)
+
+//iniciando con facebook
+export const popup_facebook = () =>
+    signInWithPopup(auth, providerFacebook)
         .then((result) => {
-            // This gives you a Google Access Token. You can use it to access the Google API.
-            const credential = GoogleAuthProvider.credentialFromResult(result);
-            const token = credential.accessToken;
             // The signed-in user info.
             const user = result.user;
+
+            // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            const credential = FacebookAuthProvider.credentialFromResult(result);
+            const accessToken = credential.accessToken;
+
             // IdP data available using getAdditionalUserInfo(result)
             // ...
-            return user; // Devolver el usuario después de iniciar sesión
-        }).catch((error) => {
+        })
+        .catch((error) => {
             // Handle Errors here.
             const errorCode = error.code;
             const errorMessage = error.message;
             // The email of the user's account used.
             const email = error.customData.email;
             // The AuthCredential type that was used.
-            const credential = GoogleAuthProvider.credentialFromError(error);
+            const credential = FacebookAuthProvider.credentialFromError(error);
+
             // ...
+        });
+
+//iniciando y registrandose con google
+export const popup = () => {
+    return signInWithPopup(auth, providerGoogle)
+        .then((result) => {
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential.accessToken;
+            const user = result.user;
+            return user; // Devolver el usuario después de iniciar sesión
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            const email = error.customData.email;
+            const credential = GoogleAuthProvider.credentialFromError(error);
             throw error; // Re-lanzar el error para manejarlo en el código que llama a esta función
         });
 };
@@ -82,13 +93,11 @@ export const enviarCorreoVerifi = (email) =>
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
         .then(() => {
             alert("Todo bien")
-            // ...
         })
         .catch((error) => {
             const errorCode = error.code
             const errorMessage = error.message
             alert("Todo mal")
-            // ...
         })
 
 //metodo de autenticacion de usuario
