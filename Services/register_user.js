@@ -11,7 +11,7 @@ async function register() {
             const verificar = await registerauth(emailInput, contraseñaInput);
             alert("El usuario se registró exitosamente.");
             window.location.href = "../index.html";
-            const si = await enviarCorreoVerifi(emailInput.value);
+            const si = await enviarCorreoVerifi(emailInput);
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 alert("Este correo electrónico ya está en uso. Por favor, utiliza otro.");
