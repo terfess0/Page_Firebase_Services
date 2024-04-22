@@ -67,7 +67,7 @@ export const popup_facebook = () =>
             let errorMessage;
             switch (error.code) {
                 case "auth/account-exists-with-different-credential":
-                    errorMessage = "Ya existe una cuenta asociada con este correo electrónico. Por favor, inicia sesión con otro método.";
+                    alert("Ya existe una cuenta asociada con este correo electrónico. Por favor, inicia sesión con otro método.");
                     break;
                 default:
                     errorMessage = "Error al iniciar sesión con Facebook. Por favor, inténtalo de nuevo más tarde.";
