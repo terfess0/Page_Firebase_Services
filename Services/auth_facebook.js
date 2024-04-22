@@ -17,6 +17,10 @@ async function log_facebook() {
         if (error.code === "auth/popup-closed-by-user") {
             // El usuario cerró la ventana de inicio de sesión
             alert("Iniciar sesión con Facebook cancelado.");
+        } else if (error.code === "auth/account-exists-with-different-credential") {
+            // El ya esta registrado con otro metodo
+            alert("Usuario ya esta registrado con otro metodo (Correo o Google), Por favor inicie sesión.");
+            window.location.href = "../index.html";
         } else {
             alert("Error de autenticación. Verifica la consola para más detalles.");
         }
