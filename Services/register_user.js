@@ -8,11 +8,10 @@ async function register() {
         const contraseñaInput = document.getElementById('contraseñaR').value
 
         try {
-            await enviarCorreoVerifi(emailInput);
-
             const verificar = await registerauth(emailInput, contraseñaInput);
             alert("El usuario se registró exitosamente.");
             window.location.href = "../index.html";
+            await enviarCorreoVerifi();
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 alert("Este correo electrónico ya está en uso. Por favor, utiliza otro.");
