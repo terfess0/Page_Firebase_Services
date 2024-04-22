@@ -7,7 +7,7 @@ async function regist_facebook() {
         const verification = await popup_facebook();
         if (verification != null) {
             alert("Usuario autenticado: " + verification.email);
-            window.location.href = "Templates/home.html";
+            window.location.href = "../Templates/home.html";
         } else {
             console.log("Sesión no validada");
             alert("Error de usuario, verifique usuario y/o contraseña.");
