@@ -111,7 +111,7 @@ export const enviarCorreoVerifi = () =>
         })
 
 
-        //---------------------------------
+//---------------------------------
 
 //metodo de autenticacion de usuario
 export const login_auth = (email, password) =>
