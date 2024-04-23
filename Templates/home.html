@@ -17,6 +17,17 @@
             background-image: url('../Resource/background_login.jpg');
             background-size: cover;
         }
+
+        .confirmacion {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -24,7 +35,8 @@
 
     <div class="si p-5 text-white text-center">
         <h1>Bienvenido o Bienvenida</h1>
-        <p>Este es el centro de control para recursos fisicos y control de sucursales con integración ecomerce de nuestra empresa.</p>
+        <p>Este es el centro de control para recursos fisicos y control de sucursales con integración ecomerce de
+            nuestra empresa.</p>
     </div>
 
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -46,12 +58,24 @@
                         <div class="container-center">
                             <button type="button" class="btn btn-danger btn-sm" id="btn_log_out">Cerrar Sesion</button>
                         </div>
+                        <div class="container-center">
+                            <button type="button" class="btn btn-danger btn-sm" id="btn_del_acc">Borrar mi
+                                cuenta</button>
+                        </div>
                     </a>
                 </li>
             </ul>
         </div>
     </nav>
-    
+
+    <div class="container-center">
+        <div id="confirmacion_eliminar_cuenta" style="display: none;" class="confirmacion">
+            <p>¿Estás seguro de que deseas eliminar tu cuenta?</p>
+            <button id="btn_confirm_delete_account">Sí, eliminar cuenta</button>
+            <button onclick="cancelarEliminar()">Cancelar</button>
+        </div>
+    </div>
+
 
     <div class="container mt-5">
         <div class="row">
@@ -103,6 +127,16 @@
     </div>
 
     <script type="module" src="../Services/home.js"></script>
+    <script type="module" src="../Services/delete_account.js"></script>
+
+    <script>
+        function cancelarEliminar() {
+            document.getElementById("confirmacion_eliminar_cuenta").style.display = "none";
+        }
+        document.getElementById("btn_del_acc").addEventListener("click", async function (event) {
+            document.getElementById("confirmacion_eliminar_cuenta").style.display = "block";
+        });
+    </script>
 </body>
 
 </html>

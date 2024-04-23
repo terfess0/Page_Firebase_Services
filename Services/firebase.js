@@ -12,7 +12,8 @@ import {
     signInWithPopup,
     GoogleAuthProvider,
     FacebookAuthProvider,
-    sendPasswordResetEmail
+    sendPasswordResetEmail,
+    deleteUser
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -29,6 +30,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
+const user = auth.currentUser;
 
 const providerGoogle = new GoogleAuthProvider();
 const providerFacebook = new FacebookAuthProvider();
@@ -131,3 +133,7 @@ export const registerauth = (email, password) =>
 //recuperar contraseña
 export const recovery_pass = (email) =>
     sendPasswordResetEmail(auth, email)
+
+//eliminar usuario
+export const delete_account = () =>
+    deleteUser(user)
