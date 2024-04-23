@@ -84,7 +84,7 @@ export const popup = () => {
 };
 //enviar correo verificacion registro
 const actionCodeSettings = {
-    url: 'https://terfess0.github.io/ApiWebNube/Templates/home.html',
+    url: 'https://terfess0.github.io/ApiWebNube/index.html',
     handleCodeInApp: true
 }
 
