@@ -11,7 +11,8 @@ import {
     sendSignInLinkToEmail,
     signInWithPopup,
     GoogleAuthProvider,
-    FacebookAuthProvider
+    FacebookAuthProvider,
+    sendPasswordResetEmail
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 const firebaseConfig = {
@@ -127,3 +128,6 @@ export const userState = () => {
 export const registerauth = (email, password) =>
     createUserWithEmailAndPassword(auth, email, password)
 
+//recuperar contraseña
+export const recovery_pass = (email) =>
+    sendPasswordResetEmail(auth, email)
