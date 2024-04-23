@@ -58,9 +58,11 @@
             font-family: Arial, sans-serif;
             border: 2px solid #d0d0d0;
         }
+
         .btn-google-container:hover {
             background-color: #ece2d0;
         }
+
         .boton-facebook-regist {
             display: inline-block;
             background-color: #00000000;
@@ -82,9 +84,11 @@
             font-family: Arial, sans-serif;
             border: 2px solid #d0d0d0;
         }
+
         .btn-facebook-container:hover {
             background-color: #d0d9ec;
-        } 
+        }
+
         .img-centrada {
             margin: auto;
         }
@@ -153,13 +157,14 @@
                 errorEmail += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
             } else if (email !== emailConfirm) {
                 errorEmail += "Los correos electrónicos no coinciden.<br>";
-            }
-            else if (contraseña.length < 8 || contraseñaConfirm.length < 8) {
+            } else if (contraseña.length < 8 || contraseñaConfirm.length < 8) {
                 errorContra += "La contraseña debe tener al menos 8 caracteres.<br>";
-            }
-            else if (contraseña !== contraseñaConfirm) {
+            } else if (contraseña !== contraseñaConfirm) {
                 errorContra += "Las contraseñas no coinciden.<br>";
+            } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z!@#$%^&*()_+]{8,}/.test(contraseña)) {
+                errorContra += "La contraseña debe contener al menos una mayúscula, una minúscula y un caracter especial.<br>";
             }
+
 
 
             // Si hay errores, mostrar los mensajes y evitar el envío del formulario
