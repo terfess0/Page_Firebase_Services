@@ -13,7 +13,7 @@ import {
     GoogleAuthProvider,
     FacebookAuthProvider,
     sendPasswordResetEmail,
-    deleteUser
+    deleteUser 
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 const firebaseConfig = {

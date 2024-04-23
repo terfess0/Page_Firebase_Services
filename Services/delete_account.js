@@ -4,7 +4,7 @@ const btnConfirmDeleteAccount = document.getElementById("btn_confirm_delete_acco
 
 async function deleteAccount() {
     const funcion = delete_account()
-    console.log("borrando...")
+    console.log("borrando..")
     const borrar = await funcion
         .then((borrar) => {
             alert("Tu cuenta se eliminó correctamente. ¡Adiós!")
@@ -32,6 +32,7 @@ async function deleteAccount() {
             }
         })
 }
+
 
 window.addEventListener('DOMContentLoaded', () => {
     btnConfirmDeleteAccount.addEventListener('click', deleteAccount)
