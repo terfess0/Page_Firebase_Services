@@ -13,8 +13,15 @@ import {
     GoogleAuthProvider,
     FacebookAuthProvider,
     sendPasswordResetEmail,
-    deleteUser 
+    deleteUser
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+//firestore
+import {
+    getFirestore,
+    collection,
+    addDoc
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyChViHU9-o0bPiKxVrakSgrrGUBrcBs39M",
@@ -31,30 +38,28 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const user = auth.currentUser;
+const db = getFirestore(app);
 
 const providerGoogle = new GoogleAuthProvider();
 const providerFacebook = new FacebookAuthProvider();
 
+//-----------------------------------------------------------------------------------------
+//Metodos autenticacion firebase
 
 // Iniciando con Facebook
 export const popup_facebook = () =>
     signInWithPopup(auth, providerFacebook)
         .then((result) => {
-            // El usuario ha iniciado sesión exitosamente
             const user = result.user;
 
-            // Esto te da un token de acceso de Facebook. Puedes usarlo para acceder a la API de Facebook.
             const credential = FacebookAuthProvider.credentialFromResult(result);
             const accessToken = credential.accessToken;
 
-            // Retorna el token de acceso
             return accessToken;
         })
         .catch((error) => {
-            // Manejar errores
             console.error("Error al iniciar sesión con Facebook:", error);
 
-            // Puedes manejar errores específicos aquí para proporcionar mensajes de error más útiles al usuario
             let errorMessage;
             switch (error.code) {
                 case "auth/account-exists-with-different-credential":
@@ -64,7 +69,6 @@ export const popup_facebook = () =>
                     errorMessage = "Error al iniciar sesión con Facebook. Por favor, inténtalo de nuevo más tarde.";
                     break;
             }
-
             throw new Error(errorMessage);
         });
 
@@ -85,12 +89,12 @@ export const popup = () => {
             throw error; // Re-lanzar el error para manejarlo en el código que llama a esta función
         });
 };
+
 //enviar correo verificacion registro
 const actionCodeSettings = {
     url: 'https://terfess0.github.io/ApiWebNube/index.html',
     handleCodeInApp: true
 }
-
 
 export const enviarCorreoVerifi = (email) =>
     sendSignInLinkToEmail(auth, email, actionCodeSettings)
@@ -104,9 +108,6 @@ export const enviarCorreoVerifi = (email) =>
             alert("Error al enviar el correo de verificación: " + errorMessage)
         })
 
-
-//---------------------------------
-
 //metodo de autenticacion de usuario
 export const login_auth = (email, password) =>
     signInWithEmailAndPassword(auth, email, password)
@@ -114,7 +115,6 @@ export const login_auth = (email, password) =>
 //cerrar sesion del usuario
 export const log_out = () =>
     signOut(auth)
-
 
 export const userState = () => {
     onAuthStateChanged(auth, (user) => {
@@ -137,3 +137,14 @@ export const recovery_pass = (email) =>
 //eliminar usuario
 export const delete_account = () =>
     deleteUser(user)
+
+//-----------------------------------------------------------------------------------------
+//Metodos database con firestore
+
+export const addRegister = (codigo, nombre, descripcion, cant) =>
+    addDoc(collection(db, "productos"), {
+        codigo: codigo,
+        nombre: nombre,
+        descripcion: descripcion,
+        cantidad: cant
+    })
