@@ -12,7 +12,7 @@ async function agg_product() {
         try {
             await addRegister(codigo, nombre, descripcion, cantidad)
             alert("Producto fue agregado correctamente.")
-            window.location.href = "../index.html"
+            window.location.href = "../Templates/home.html"
 
         } catch (error) {
             if (error.code === 'permission-denied') {
