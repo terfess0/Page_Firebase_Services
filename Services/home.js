@@ -1,8 +1,21 @@
-import { userState, log_out } from "../Services/firebase.js";
+import { userState, log_out, getUserEmail } from "../Services/firebase.js";
 
 userState()
 
 const sesion = document.getElementById('btn_log_out')
+
+window.addEventListener('DOMContentLoaded', async () => {
+    const emailUser = getUserEmail();
+    const correo = document.getElementById("userEmail");
+
+    if (emailUser) {
+        correo.innerHTML = emailUser;
+    } else {
+        correo.innerHTML = "No disponible";
+    }
+
+    sesion.addEventListener('click', cerrarSesion);
+});
 
 async function cerrarSesion(){
     const verificacion = log_out()

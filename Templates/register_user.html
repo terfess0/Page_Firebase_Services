@@ -16,18 +16,31 @@
             background-image: url('../Resource/background_login.jpg');
             background-size: cover;
             background-position: center;
-            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
         }
 
         .register-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             background-color: rgba(255, 255, 255, 0.8);
+            margin: 20px;
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            width: 400px;
+            width: 500px;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .input-group input {
+            width: calc(50% - 5px);
         }
 
         .register-container h2 {
@@ -92,6 +105,25 @@
         .img-centrada {
             margin: auto;
         }
+
+        select.form-control {
+            appearance: none;
+            /* Eliminar los estilos predeterminados del sistema */
+            -webkit-appearance: none;
+            /* Para navegadores basados en WebKit */
+            -moz-appearance: none;
+            /* Para navegadores basados en Gecko */
+            background-image: url('data:image/svg+xml;utf8,<svg fill="%231b6ec2" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"><path d="M512 608c-9.6 0-19.2-3.2-26.4-10.4l-300-296c-14.4-12-14.4-32.8 0-44.8s38.4-12 52.8 0l273.6 270.4 273.6-270.4c14.4-12 38.4-12 52.8 0s14.4 32.8 0 44.8l-300 296c-7.2 7.2-16.8 10.4-26.4 10.4z"/></svg>');
+            /* Agregar una flecha personalizada */
+            background-repeat: no-repeat;
+            background-position: right 10px center;
+            /* Posiciona la flecha a la derecha */
+            background-size: 16px;
+            /* Tamaño de la flecha */
+            padding-right: 30px;
+            /* Ajusta el espacio para la flecha */
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 
@@ -99,6 +131,51 @@
     <div class="container-center text-center">
         <div class="register-container">
             <h2>Registrarse</h2>
+            <div class="input-group">
+                <input type="number" class="form-control" id="identR" placeholder="Identificación" required>
+                <input type="text" class="form-control" id="nameR" placeholder="Nombre" required>
+            </div>
+            <div class="input-group">
+                <input type="text" class="form-control" id="direccionR" placeholder="Dirección" required>
+                <input type="number" class="form-control" id="telR" placeholder="Telefono" required>
+            </div>
+
+            <select class="form-control" id="rhR" required>
+                <option value="">Seleccionar tipo de sangre (Rh)</option>
+                <option value="A+">A+</option>
+                <option value="A-">A-</option>
+                <option value="B+">B+</option>
+                <option value="B-">B-</option>
+                <option value="AB+">AB+</option>
+                <option value="AB-">AB-</option>
+                <option value="O+">O+</option>
+                <option value="O-">O-</option>
+            </select>
+
+            <select class="form-control" id="estadoR" required>
+                <option value="">Seleccionar estado civil</option>
+                <option value="Soltero/a">Soltero/a</option>
+                <option value="Casado/a">Casado/a</option>
+                <option value="Divorciado/a">Divorciado/a</option>
+                <option value="Viudo/a">Viudo/a</option>
+                <option value="Unión libre">Unión libre</option>
+                <option value="Separado/a">Separado/a</option>
+                <option value="Comprometido/a">Comprometido/a</option>
+                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+            </select>
+
+            <select class="form-control" id="generoR" required>
+                <option value="">Seleccionar género</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Femenino">Femenino</option>
+                <option value="No binario">No binario</option>
+                <option value="Género fluido">Género fluido</option>
+                <option value="Transexual">Transexual</option>
+                <option value="Intersexual">Intersexual</option>
+                <option value="Agénero">Agénero</option>
+                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+            </select>
+
             <input type="email" class="form-control" id="emailR" placeholder="Correo electrónico" required>
 
             <input type="email" class="form-control" id="emailConfirm" placeholder="Confirmar correo electrónico"
@@ -111,9 +188,8 @@
                 required>
             <div id="error-contraseña" style="color: red;"></div>
             <div id="error" style="color: red;"></div>
-            <br>
-            <button type="submit" class="btn btn-success btn-block mt-3" id="btn_register">Registrate</button></a>
-            <br>
+
+            <button type="submit" class="btn btn-success btn-block mt-3" id="btn_register">Registrate</button>
             <div>
                 <a href="../index.html">Volver</a>
             </div>
@@ -131,28 +207,99 @@
         </div>
     </div>
 
-
-
     <script>
-        document.getElementById("btn_register").addEventListener("click", async function (event) {
+        // Función para desactivar el botón de registro
+        function desactivarBoton() {
+            document.getElementById("btn_register").disabled = true;
+            console.log("Desabilitado boton")
+        }
+    
+        // Llama a la función para desactivar el botón cuando se carga la página
+        desactivarBoton();
+    
+        // Función para validar un correo electrónico
+        function validarEmail(email) {
+            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return regex.test(email);
+        }
+    
+        // Función para habilitar el botón de registro si todos los campos están llenos y válidos
+        function habilitarBoton() {
+            var identificacion = document.getElementById("identR").value;
+            var nombre = document.getElementById("nameR").value;
+            var direccion = document.getElementById("direccionR").value;
+            var telefono = document.getElementById("telR").value;
             var email = document.getElementById("emailR").value;
             var emailConfirm = document.getElementById("emailConfirm").value;
             var contraseña = document.getElementById("contraseñaR").value;
             var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
+            var tipoSangre = document.getElementById("rhR").value;
+            var estadoCivil = document.getElementById("estadoR").value;
+            var genero = document.getElementById("generoR").value;
+    
+            var boton = document.getElementById("btn_register");
+    
+            if (identificacion !== "" && nombre !== "" && direccion !== "" && telefono !== "" && email !== "" && emailConfirm !== "" && contraseña !== "" && contraseñaConfirm !== "" && tipoSangre !== "" && estadoCivil !== "" && genero !== "") {
+                boton.disabled = false;
+                console.log("Habilitado boton")
+            } else {
+                boton.disabled = true;
+                console.log("Desabilitado boton2")
+            }
+        }
+    
+        // Agregar event listeners para los eventos de entrada en los campos del formulario
+        document.getElementById("identR").addEventListener("input", habilitarBoton);
+        document.getElementById("nameR").addEventListener("input", habilitarBoton);
+        document.getElementById("direccionR").addEventListener("input", habilitarBoton);
+        document.getElementById("telR").addEventListener("input", habilitarBoton);
+        document.getElementById("emailR").addEventListener("input", habilitarBoton);
+        document.getElementById("emailConfirm").addEventListener("input", habilitarBoton);
+        document.getElementById("contraseñaR").addEventListener("input", habilitarBoton);
+        document.getElementById("contraseñaConfirm").addEventListener("input", habilitarBoton);
+        document.getElementById("rhR").addEventListener("input", habilitarBoton);
+        document.getElementById("estadoR").addEventListener("input", habilitarBoton);
+        document.getElementById("generoR").addEventListener("input", habilitarBoton);
+    </script>
+    
+    <script>
+        document.getElementById("btn_register").addEventListener("click", async function (event) {
+            var identificacion = document.getElementById("identR").value;
+            var nombre = document.getElementById("nameR").value;
+            var direccion = document.getElementById("direccionR").value;
+            var telefono = document.getElementById("telR").value;
+            var email = document.getElementById("emailR").value;
+            var emailConfirm = document.getElementById("emailConfirm").value;
+            var contraseña = document.getElementById("contraseñaR").value;
+            var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
+            var tipoSangre = document.getElementById("rhR").value;
+            var estadoCivil = document.getElementById("estadoR").value;
+            var genero = document.getElementById("generoR").value;
+
+            var errorIdentificacion = "";
+            var errorNombre = "";
+            var errorDireccion = "";
+            var errorTelefono = "";
+            var errorTipoSangre = "";
+            var errorEstadoCivil = "";
+            var errorGenero = "";
+
             var errorEmail = "";
             var errorContra = "";
             var errorEmpty = "";
+
             var errorGeneral = document.getElementById("error");
             var errorCorreo = document.getElementById("error-email");
             var errorPassw = document.getElementById("error-contraseña");
 
-            //limpiar anuncios de errores
+            // Limpiar anuncios de errores
             errorGeneral.innerHTML = "";
             errorCorreo.innerHTML = "";
             errorPassw.innerHTML = "";
 
-            if (email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "") {
-                errorEmpty += "Todos los campos son obligatorios.<br>";
+            // Comprobación de campos
+            if (identificacion === "" || nombre === "" || direccion === "" || telefono === "" || email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "" || tipoSangre === "" || estadoCivil === "" || genero === "") {
+                errorEmail += "Todos los campos son obligatorios.<br>";
             } else if (email.indexOf("@") === -1) {
                 errorEmail += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
             } else if (email !== emailConfirm) {
@@ -161,15 +308,13 @@
                 errorContra += "La contraseña debe tener al menos 8 caracteres.<br>";
             } else if (contraseña !== contraseñaConfirm) {
                 errorContra += "Las contraseñas no coinciden.<br>";
-            } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z!@#$%^&*()_+]{8,}/.test(contraseña)) {
+            } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+])[A-Za-z!@#$%^&*()_+]/.test(contraseña)) {
                 errorContra += "La contraseña debe contener al menos una mayúscula, una minúscula y un caracter especial.<br>";
             }
 
-
-
             // Si hay errores, mostrar los mensajes y evitar el envío del formulario
             if (errorEmpty !== "" || errorEmail !== "" || errorContra !== "") {
-                console.log("comprobando campos");
+                console.log("Comprobando campos");
                 if (errorEmpty !== "") {
                     errorGeneral.innerHTML = errorEmpty;
                 }
@@ -181,10 +326,12 @@
                 }
                 event.preventDefault(); // Evita que el formulario se envíe si hay errores
             } else {
-                console.log("esta verificado");
+                console.log("¡Campos verificados!");
                 window.verificado = true;
+                document.getElementById("btn_register").innerText = "Enviando...";
             }
         });
+
     </script>
 
 

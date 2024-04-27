@@ -148,3 +148,23 @@ export const addRegister = (codigo, nombre, descripcion, cant) =>
         descripcion: descripcion,
         cantidad: cant
     })
+
+export const addDataUser = (identi, name, dir, tel, rh, est, gen, email) =>
+    addDoc(collection(db, "users"), {
+        userIdentification: identi,
+        userName: name,
+        userDirection: dir,
+        userPhone: tel,
+        userRh: rh,
+        userCivilState: est,
+        userGender: gen,
+        userEmail: email
+    })
+
+    export const getUserEmail = () => {
+        const user = getAuth().currentUser
+        if (user != null) {
+            return user.email
+        }
+        return null
+    }
