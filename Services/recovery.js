@@ -8,7 +8,6 @@ async function recovery() {
   if (email === "") {
     alert("Ingrese el correo para recuperar contraseña")
     return 1;
-
   } else if (email.indexOf("@") === -1) {
     alert("El correo electrónico no es válido (Use el formato ejemplo@example.com)")
     return 1;
