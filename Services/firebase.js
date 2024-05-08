@@ -149,15 +149,13 @@ export const addRegister = (codigo, nombre, descripcion, cant) =>
         cantidad: cant
     })
 
-export const addDataUser = (identi, name, dir, tel, rh, est, gen, email) =>
+export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
     addDoc(collection(db, "users"), {
         userIdentification: identi,
         userName: name,
+        userBirthDate: birthdate,
         userDirection: dir,
         userPhone: tel,
-        userRh: rh,
-        userCivilState: est,
-        userGender: gen,
         userEmail: email
     })
 

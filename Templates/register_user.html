@@ -140,41 +140,12 @@
                 <input type="number" class="form-control" id="telR" placeholder="Telefono" required>
             </div>
 
-            <select class="form-control" id="rhR" required>
-                <option value="">Seleccionar tipo de sangre (Rh)</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
-            </select>
+            <div>
+                <label for="fecha">Selecciona una fecha:</label>
+                <input type="date" id="dateR" name="fecha">
+            </div>
 
-            <select class="form-control" id="estadoR" required>
-                <option value="">Seleccionar estado civil</option>
-                <option value="Soltero/a">Soltero/a</option>
-                <option value="Casado/a">Casado/a</option>
-                <option value="Divorciado/a">Divorciado/a</option>
-                <option value="Viudo/a">Viudo/a</option>
-                <option value="Unión libre">Unión libre</option>
-                <option value="Separado/a">Separado/a</option>
-                <option value="Comprometido/a">Comprometido/a</option>
-                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-            </select>
 
-            <select class="form-control" id="generoR" required>
-                <option value="">Seleccionar género</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="No binario">No binario</option>
-                <option value="Género fluido">Género fluido</option>
-                <option value="Transexual">Transexual</option>
-                <option value="Intersexual">Intersexual</option>
-                <option value="Agénero">Agénero</option>
-                <option value="Prefiero no decirlo">Prefiero no decirlo</option>
-            </select>
 
             <input type="email" class="form-control" id="emailR" placeholder="Correo electrónico" required>
 
@@ -213,33 +184,26 @@
             document.getElementById("btn_register").disabled = true;
             console.log("Desabilitado boton")
         }
-    
+
         // Llama a la función para desactivar el botón cuando se carga la página
         desactivarBoton();
-    
-        // Función para validar un correo electrónico
-        function validarEmail(email) {
-            const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return regex.test(email);
-        }
-    
+
         // Función para habilitar el botón de registro si todos los campos están llenos y válidos
         function habilitarBoton() {
             var identificacion = document.getElementById("identR").value;
             var nombre = document.getElementById("nameR").value;
             var direccion = document.getElementById("direccionR").value;
             var telefono = document.getElementById("telR").value;
+            var birth_fecha = document.getElementById("dataR").value;
+
             var email = document.getElementById("emailR").value;
             var emailConfirm = document.getElementById("emailConfirm").value;
             var contraseña = document.getElementById("contraseñaR").value;
             var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
-            var tipoSangre = document.getElementById("rhR").value;
-            var estadoCivil = document.getElementById("estadoR").value;
-            var genero = document.getElementById("generoR").value;
-    
+
             var boton = document.getElementById("btn_register");
-    
-            if (identificacion !== "" && nombre !== "" && direccion !== "" && telefono !== "" && email !== "" && emailConfirm !== "" && contraseña !== "" && contraseñaConfirm !== "" && tipoSangre !== "" && estadoCivil !== "" && genero !== "") {
+
+            if (identificacion !== "" && nombre !== "" && direccion !== "" && telefono !== "" && email !== "" && emailConfirm !== "" && contraseña !== "" && contraseñaConfirm) {
                 boton.disabled = false;
                 console.log("Habilitado boton")
             } else {
@@ -247,34 +211,32 @@
                 console.log("Desabilitado boton2")
             }
         }
-    
+
         // Agregar event listeners para los eventos de entrada en los campos del formulario
         document.getElementById("identR").addEventListener("input", habilitarBoton);
         document.getElementById("nameR").addEventListener("input", habilitarBoton);
         document.getElementById("direccionR").addEventListener("input", habilitarBoton);
+        document.getElementById("dateR").addEventListener("input", habilitarBoton);
         document.getElementById("telR").addEventListener("input", habilitarBoton);
         document.getElementById("emailR").addEventListener("input", habilitarBoton);
         document.getElementById("emailConfirm").addEventListener("input", habilitarBoton);
         document.getElementById("contraseñaR").addEventListener("input", habilitarBoton);
         document.getElementById("contraseñaConfirm").addEventListener("input", habilitarBoton);
-        document.getElementById("rhR").addEventListener("input", habilitarBoton);
-        document.getElementById("estadoR").addEventListener("input", habilitarBoton);
-        document.getElementById("generoR").addEventListener("input", habilitarBoton);
+
     </script>
-    
+
     <script>
         document.getElementById("btn_register").addEventListener("click", async function (event) {
             var identificacion = document.getElementById("identR").value;
             var nombre = document.getElementById("nameR").value;
             var direccion = document.getElementById("direccionR").value;
+            var birthDate = document.getElementById("dateR").value;
             var telefono = document.getElementById("telR").value;
             var email = document.getElementById("emailR").value;
             var emailConfirm = document.getElementById("emailConfirm").value;
             var contraseña = document.getElementById("contraseñaR").value;
             var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
-            var tipoSangre = document.getElementById("rhR").value;
-            var estadoCivil = document.getElementById("estadoR").value;
-            var genero = document.getElementById("generoR").value;
+
 
             var errorIdentificacion = "";
             var errorNombre = "";
@@ -298,7 +260,7 @@
             errorPassw.innerHTML = "";
 
             // Comprobación de campos
-            if (identificacion === "" || nombre === "" || direccion === "" || telefono === "" || email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "" || tipoSangre === "" || estadoCivil === "" || genero === "") {
+            if (identificacion === "" || nombre === "" || direccion === "" || birthDate === "" || telefono === "" || email === "" || emailConfirm === "" || contraseña === "" || contraseñaConfirm === "") {
                 errorEmail += "Todos los campos son obligatorios.<br>";
             } else if (email.indexOf("@") === -1) {
                 errorEmail += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
