@@ -179,51 +179,51 @@
     </div>
 
     <script>
-        // Función para desactivar el botón de registro
-        function desactivarBoton() {
-            document.getElementById("btn_register").disabled = true;
-            console.log("Desabilitado boton")
+    // Función para desactivar el botón de registro
+    function desactivarBoton() {
+        document.getElementById("btn_register").disabled = true;
+        console.log("Deshabilitado botón");
+    }
+
+    // Llama a la función para desactivar el botón cuando se carga la página
+    desactivarBoton();
+
+    // Función para habilitar el botón de registro si todos los campos están llenos y válidos
+    function habilitarBoton() {
+        var identificacion = document.getElementById("identR").value;
+        var nombre = document.getElementById("nameR").value;
+        var direccion = document.getElementById("direccionR").value;
+        var telefono = document.getElementById("telR").value;
+        var birth_fecha = document.getElementById("dateR").value;
+
+        var email = document.getElementById("emailR").value;
+        var emailConfirm = document.getElementById("emailConfirm").value;
+        var contraseña = document.getElementById("contraseñaR").value;
+        var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
+
+        var boton = document.getElementById("btn_register");
+
+        if (identificacion !== "" && nombre !== "" && direccion !== "" && birth_fecha !== "" && telefono !== "" && email !== "" && emailConfirm !== "" && contraseña !== "" && contraseñaConfirm !== "") {
+            boton.disabled = false;
+            console.log("Habilitado botón");
+        } else {
+            boton.disabled = true;
+            console.log("Deshabilitado botón");
         }
+    }
 
-        // Llama a la función para desactivar el botón cuando se carga la página
-        desactivarBoton();
+    // Agregar event listeners para los eventos de entrada en los campos del formulario
+    document.getElementById("identR").addEventListener("input", habilitarBoton);
+    document.getElementById("nameR").addEventListener("input", habilitarBoton);
+    document.getElementById("direccionR").addEventListener("input", habilitarBoton);
+    document.getElementById("dateR").addEventListener("input", habilitarBoton);
+    document.getElementById("telR").addEventListener("input", habilitarBoton);
+    document.getElementById("emailR").addEventListener("input", habilitarBoton);
+    document.getElementById("emailConfirm").addEventListener("input", habilitarBoton);
+    document.getElementById("contraseñaR").addEventListener("input", habilitarBoton);
+    document.getElementById("contraseñaConfirm").addEventListener("input", habilitarBoton);
+</script>
 
-        // Función para habilitar el botón de registro si todos los campos están llenos y válidos
-        function habilitarBoton() {
-            var identificacion = document.getElementById("identR").value;
-            var nombre = document.getElementById("nameR").value;
-            var direccion = document.getElementById("direccionR").value;
-            var telefono = document.getElementById("telR").value;
-            var birth_fecha = document.getElementById("dataR").value;
-
-            var email = document.getElementById("emailR").value;
-            var emailConfirm = document.getElementById("emailConfirm").value;
-            var contraseña = document.getElementById("contraseñaR").value;
-            var contraseñaConfirm = document.getElementById("contraseñaConfirm").value;
-
-            var boton = document.getElementById("btn_register");
-
-            if (identificacion !== "" && nombre !== "" && direccion !== "" && telefono !== "" && email !== "" && emailConfirm !== "" && contraseña !== "" && contraseñaConfirm) {
-                boton.disabled = false;
-                console.log("Habilitado boton")
-            } else {
-                boton.disabled = true;
-                console.log("Desabilitado boton2")
-            }
-        }
-
-        // Agregar event listeners para los eventos de entrada en los campos del formulario
-        document.getElementById("identR").addEventListener("input", habilitarBoton);
-        document.getElementById("nameR").addEventListener("input", habilitarBoton);
-        document.getElementById("direccionR").addEventListener("input", habilitarBoton);
-        document.getElementById("dateR").addEventListener("input", habilitarBoton);
-        document.getElementById("telR").addEventListener("input", habilitarBoton);
-        document.getElementById("emailR").addEventListener("input", habilitarBoton);
-        document.getElementById("emailConfirm").addEventListener("input", habilitarBoton);
-        document.getElementById("contraseñaR").addEventListener("input", habilitarBoton);
-        document.getElementById("contraseñaConfirm").addEventListener("input", habilitarBoton);
-
-    </script>
 
     <script>
         document.getElementById("btn_register").addEventListener("click", async function (event) {
