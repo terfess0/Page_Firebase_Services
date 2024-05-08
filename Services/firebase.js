@@ -141,12 +141,13 @@ export const delete_account = () =>
 //-----------------------------------------------------------------------------------------
 //Metodos database con firestore
 
-export const addRegister = (codigo, nombre, descripcion, cant) =>
+export const addProduct = (codigo, nombre, descripcion, cant, email) =>
     addDoc(collection(db, "productos"), {
         codigo: codigo,
         nombre: nombre,
         descripcion: descripcion,
-        cantidad: cant
+        cantidad: cant,
+        ownerEmail: email
     })
 
 export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
