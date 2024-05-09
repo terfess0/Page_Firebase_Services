@@ -20,7 +20,8 @@ import {
 import {
     getFirestore,
     collection,
-    addDoc
+    addDoc,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
