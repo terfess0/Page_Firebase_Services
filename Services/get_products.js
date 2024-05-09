@@ -9,7 +9,6 @@ async function cargar() {
   const querySnapshot = await docref;
 
   querySnapshot.forEach((doc) => {
-    console.log(`${doc.id} => ${doc.data()}`);
 
     ver.innerHTML += `
         <tr>
