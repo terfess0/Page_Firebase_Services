@@ -43,6 +43,7 @@ const db = getFirestore(app);
 const providerGoogle = new GoogleAuthProvider();
 const providerFacebook = new FacebookAuthProvider();
 
+
 //-----------------------------------------------------------------------------------------
 //Metodos autenticacion firebase
 
@@ -112,6 +113,15 @@ export const enviarCorreoVerifi = (email) =>
 export const login_auth = (email, password) =>
     signInWithEmailAndPassword(auth, email, password)
 
+//obtener correo del usuario
+export const getUserEmail = () => {
+    const user = getAuth().currentUser
+    if (user != null) {
+        return user.email
+    }
+    return null
+}
+
 //cerrar sesion del usuario
 export const log_out = () =>
     signOut(auth)
@@ -160,10 +170,6 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
-    export const getUserEmail = () => {
-        const user = getAuth().currentUser
-        if (user != null) {
-            return user.email
-        }
-        return null
-    }
+
+export const getDataProducts = () => 
+    getDocs(collection(db, "productos"))
