@@ -1,0 +1,83 @@
+body {
+  background-image: url("Resource/background_login.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+}
+
+.login-container h2 {
+  text-align: center;
+}
+
+.login-container input {
+  margin-bottom: 10px;
+}
+
+.alerta {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+.boton-google-regist {
+  display: inline-block;
+  background-color: #ff000000;
+  color: #000000;
+  text-decoration: none;
+  padding: 5px 20px;
+  border: none;
+  font-family: Arial, sans-serif;
+}
+
+.btn-google-container {
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #ffffff;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  border: 2px solid #d0d0d0;
+}
+.btn-google-container:hover {
+  background-color: #ece2d0;
+}
+
+.boton-facebook-regist {
+  display: inline-block;
+  background-color: #00000000;
+  color: #000000;
+  padding: 5px 20px;
+  text-decoration: none;
+  border: none;
+  font-family: Arial, sans-serif;
+}
+
+.btn-facebook-container {
+  margin-left: 50px;
+  margin-right: 50px;
+  background-color: #ffffff;
+  color: #fff;
+  padding: 5dp;
+  text-decoration: none;
+  border-radius: 5px;
+  font-family: Arial, sans-serif;
+  border: 2px solid #d0d0d0;
+}
+.btn-facebook-container:hover {
+  background-color: #d0d9ec;
+}
+.img-centrada {
+  margin: auto;
+}
