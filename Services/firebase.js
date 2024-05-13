@@ -160,10 +160,9 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
-    export const getUserEmail = () => {
-        const user = getAuth().currentUser
-        if (user != null) {
-            return user.email
-        }
-        return null
+export const getUserEmail = () => {
+    const user = getAuth().currentUser
+    if (user != null) {
+        return user.email
     }
+}
