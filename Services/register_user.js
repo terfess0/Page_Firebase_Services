@@ -35,6 +35,39 @@ async function register() {
             }
         }
     }
+
+    if (window.adm_verificado === true) {
+        const emailInput = document.getElementById('emailRA').value
+        const contraseñaInput = document.getElementById('contraseñaRA').value
+
+        //datos user to firebase
+        const ident = document.getElementById("identRA").value
+        const name = document.getElementById("nameRA").value
+        const birthdate = document.getElementById("dateRA").value
+        const dir = document.getElementById("direccionRA").value
+        const tel = document.getElementById("telRA").value
+
+        try {
+            const verificar = await registerauth(emailInput, contraseñaInput)
+            alert("El usuario se registró exitosamente.")
+            await addDataUser(ident, name, birthdate, dir, tel, emailInput)
+            alert("Los datos de usuario se guardaron.")
+
+            var modal = document.getElementById("myModal")
+            modal.style.display = "none"
+
+        } catch (error) {
+            document.getElementById("btn_register").innerText = "Registrate";
+            if (error.code === 'auth/email-already-in-use') {
+                alert("Este correo electrónico ya está en uso. Por favor, utiliza otro.")
+            } else if (error.code === 'auth/invalid-email') {
+                alert("Correo inválido, sigue el formato: ejemplo@example.com")
+            } else {
+                alert("Hubo un error, intenta de nuevo más tarde.")
+                console.error(error)
+            }
+        }
+    }
 }
 
 window.addEventListener('DOMContentLoaded', () => {

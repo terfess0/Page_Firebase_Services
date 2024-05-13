@@ -2,14 +2,17 @@
 <html lang="en">
 
 <head>
-    <title>Bootstrap 5 Website Example</title>
+    <title>Home</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         .fakeimg {
             height: 200px;
+            width: 200px;
             background: #aaa;
         }
 
@@ -34,9 +37,43 @@
 <body>
 
     <div class="si p-5 text-white text-center">
-        <h1>Bienvenido o Bienvenida</h1>
+        <h1 id="saludo">Bienvenid@, </h1>
         <p>Este es el centro de control para recursos fisicos y control de sucursales con integración ecomerce de
             nuestra empresa.</p>
+    </div>
+
+    <div id="myModal" class="modal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-5">
+                <div class="container">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn-close" onclick="closeModal()"></button>
+                    </div>
+                </div>
+
+                <h2>Crear usuario</h2>
+                <p style="font-style: italic;">
+                    Aquí puedes crear un nuevo usuario
+                </p>
+                <input type="text" id="emailRA" placeholder="Ingrese correo usuario">
+                <input type="text" id="contraseñaRA" placeholder="Ingrese contraseña usuario">
+                <input type="number" id="identRA" placeholder="Ingrese numero identidad">
+                <input type="text" id="nameRA" placeholder="Ingrese nombre usuario">
+
+                <div>
+                    <label for="fecha">Selecciona una fecha:</label>
+                    <input type="date" id="dateRA" name="Ingrese fecha de nacimiento">
+                </div>
+
+                <input type="text" id="direccionRA" placeholder="Ingrese dirección usuario">
+                <input type="number" id="telRA" placeholder="Ingrese telefono usuario">
+
+                <div id="error" style="color: red;"></div>
+                <br><br>
+
+                <button class="btn btn-outline-dark" id="btn_register">Guardar</button>
+            </div>
+        </div>
     </div>
 
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -45,24 +82,61 @@
                 <li class="nav-item">
                     <a class="nav-link" href="../Templates/reg_productos.html">Agregar productos</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../Templates/view_products.html">Ver mis productos</a>
+                </li>
             </ul>
+
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" id="close_sesion">
-                        <div class="container-center">
-                            <button type="button" class="btn btn-danger btn-sm" id="btn_log_out">Cerrar Sesion</button>
-                        </div>
-                    </a>
-                    <a class="nav-link" href="#" id="close_sesion">
-                        <div class="container-center">
-                            <button type="button" class="btn btn-danger btn-sm" id="btn_del_acc">Borrar mi
-                                cuenta</button>
-                        </div>
-                    </a>
+                    <div class="dropdown" id="options_admin">
+                        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+                            Opciones
+                        </button>
+                        <ul class="dropdown-menu" style="min-width: 100px;">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#" id="btn_create_user" onclick="openModal()">
+                                    Crear usuario
+                                </a>
+                                <a class="nav-link text-dark" href="#" id="btn_delete_user">
+                                    Eliminar Usuario
+                                </a>
+                                <a class="nav-link text-dark" href="#" id="btn_view_users">
+                                    Ver Usuarios Registrados
+
+                                </a>
+                                <a class="nav-link text-dark" href="#" id="btn_log_out">
+                                    Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <li class="nav-item">
+                    <div class="dropdown" id="options_user">
+                        <button type="button" class="btn btn-outline-light dropdown-toggle" data-bs-toggle="dropdown">
+                            Opciones
+                        </button>
+                        <ul class="dropdown-menu" style="min-width: 100px;">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" href="#" id="btn_recover_pass_user">
+                                    Recuperar contraseña
+                                </a>
+                                <a class="nav-link text-dark" href="#" id="btn_del_acc">
+                                    Borrar mi cuenta
+                                </a>
+                                <a class="nav-link text-dark" href="#" id="btn_log_out">
+                                    Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>
     </nav>
+
 
     <div class="container-center">
         <div id="confirmacion_eliminar_cuenta" style="display: none;" class="confirmacion">
@@ -78,7 +152,9 @@
             <div class="col-sm-4">
                 <h2>About Me</h2>
                 <h5>Photo of me:</h5>
-                <div class="fakeimg">Fake Image</div>
+                <div class="fakeimg">
+                    <img src="../Resource/profile.webp" class="fakeimg"><img>
+                </div>
                 <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
                 <h3 class="mt-4">Some Links</h3>
                 <p>Lorem ipsum dolor sit ame.</p>
@@ -100,7 +176,7 @@
             </div>
             <div class="col-sm-8">
                 <h2>Información del Usuario</h2>
-            
+
                 <div>
                     <strong>Identificación:</strong>
                     <span id="userIdentificacion"></span>
@@ -134,7 +210,7 @@
                     <span id="userEmail"></span>
                 </div>
             </div>
-            
+
         </div>
     </div>
 
@@ -142,8 +218,66 @@
         <p>Footer</p>
     </div>
 
+
+
     <script type="module" src="../Services/home.js"></script>
     <script type="module" src="../Services/delete_account.js"></script>
+    <script type="module" src="../Services/register_user.js"></script>
+
+    <script>
+
+        var modal = document.getElementById("myModal")
+        function openModal() {
+            modal.style.display = "block";
+        }
+
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        //verificacion de campos
+        document.getElementById("btn_register").addEventListener("click", async function (event) {
+            var identificacion = document.getElementById("identRA").value;
+            var nombre = document.getElementById("nameRA").value;
+            var direccion = document.getElementById("direccionRA").value;
+            var birthDate = document.getElementById("dateRA").value;
+            var telefono = document.getElementById("telRA").value;
+            var email = document.getElementById("emailRA").value;
+            var contraseña = document.getElementById("contraseñaRA").value;
+
+            var error = "";
+            var errorGeneral = document.getElementById("error");
+
+            // Limpiar anuncios de errores
+            errorGeneral.innerHTML = "";
+
+
+            // Comprobación de campos
+            if (identificacion === "" || nombre === "" || direccion === "" || birthDate === "" || telefono === "" || email === "" || contraseña === "") {
+                error += "Todos los campos son obligatorios.<br>";
+            } else if (email.indexOf("@") === -1) {
+                error += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
+            } else if (contraseña.length < 8) {
+                error += "La contraseña debe tener al menos 8 caracteres.<br>";
+            }
+
+            // Si hay errores, mostrar los mensajes y evitar el envío del formulario
+            if (error !== "") {
+                console.log("Comprobando campos");
+                if (error !== "") {
+                    errorGeneral.innerHTML = error;
+                }
+                event.preventDefault(); // Evita que el formulario se envíe si hay errores
+            } else {
+                console.log("¡Campos verificados!");
+                window.adm_verificado = true;
+                document.getElementById("btn_register").innerText = "Enviando...";
+            }
+        });
+
+
+
+    </script>
 
     <script>
         function cancelarEliminar() {
