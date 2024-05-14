@@ -53,7 +53,7 @@ async function register() {
             await addDataUser(ident, name, birthdate, dir, tel, emailInput)
             alert("Los datos de usuario se guardaron.")
 
-            var modal = document.getElementById("myModal")
+            var modal = document.getElementById("modalNewUser")
             modal.style.display = "none"
 
         } catch (error) {

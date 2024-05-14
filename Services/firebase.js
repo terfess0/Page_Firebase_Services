@@ -21,7 +21,9 @@ import {
     getFirestore,
     collection,
     addDoc,
-    getDocs
+    getDocs,
+    query,
+    where
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -39,7 +41,7 @@ const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const user = auth.currentUser;
-const db = getFirestore(app);
+export const db = getFirestore(app);
 
 const providerGoogle = new GoogleAuthProvider();
 const providerFacebook = new FacebookAuthProvider();
@@ -135,9 +137,9 @@ export const registerauth = (email, password) =>
 export const recovery_pass = (email) =>
     sendPasswordResetEmail(auth, email)
 
-//eliminar usuario
+//eliminar usuario (usuario)
 export const delete_account = () =>
-    deleteUser(user)
+    deleteUser(getAuth().currentUser)
 
 //-----------------------------------------------------------------------------------------
 //Metodos database con firestore
@@ -162,12 +164,23 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
     })
 
 
-export const getDataProducts = () => 
+export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
 
 export const getUserEmail = () => {
-    const user = getAuth().currentUser
+    var auth2 = getAuth()
+    const user2 = auth2.currentUser
+    console.log("Buscando email")
     if (user != null) {
+        console.log("Retornando " + user.email)
         return user.email
+    } else {
+        console.log("No se encontro email")
+        return "nada"
     }
+}
+
+//eliminar informacion de usuario (admin)
+export const getDocUser = (email) => {
+    getDocs(query(collection(db, "users"), where("userEmail", "==", email)))
 }

@@ -42,40 +42,6 @@
             nuestra empresa.</p>
     </div>
 
-    <div id="myModal" class="modal">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content p-5">
-                <div class="container">
-                    <div class="d-flex justify-content-end">
-                        <button class="btn-close" onclick="closeModal()"></button>
-                    </div>
-                </div>
-
-                <h2>Crear usuario</h2>
-                <p style="font-style: italic;">
-                    Aquí puedes crear un nuevo usuario
-                </p>
-                <input type="text" id="emailRA" placeholder="Ingrese correo usuario">
-                <input type="text" id="contraseñaRA" placeholder="Ingrese contraseña usuario">
-                <input type="number" id="identRA" placeholder="Ingrese numero identidad">
-                <input type="text" id="nameRA" placeholder="Ingrese nombre usuario">
-
-                <div>
-                    <label for="fecha">Selecciona una fecha:</label>
-                    <input type="date" id="dateRA" name="Ingrese fecha de nacimiento">
-                </div>
-
-                <input type="text" id="direccionRA" placeholder="Ingrese dirección usuario">
-                <input type="number" id="telRA" placeholder="Ingrese telefono usuario">
-
-                <div id="error" style="color: red;"></div>
-                <br><br>
-
-                <button class="btn btn-outline-dark" id="btn_register">Guardar</button>
-            </div>
-        </div>
-    </div>
-
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
         <div class="container-fluid">
             <ul class="navbar-nav mr-auto">
@@ -95,10 +61,12 @@
                         </button>
                         <ul class="dropdown-menu" style="min-width: 100px;">
                             <li class="nav-item">
-                                <a class="nav-link text-dark" href="#" id="btn_create_user" onclick="openModal()">
+                                <a class="nav-link text-dark" href="#" id="btn_create_user"
+                                    onclick="openModalCreateUser()">
                                     Crear usuario
                                 </a>
-                                <a class="nav-link text-dark" href="#" id="btn_delete_user">
+                                <a class="nav-link text-dark" href="#" id="btn_delete_user"
+                                    onclick="openModalDeleteUser()">
                                     Eliminar Usuario
                                 </a>
                                 <a class="nav-link text-dark" href="#" id="btn_view_users">
@@ -218,24 +186,94 @@
         <p>Footer</p>
     </div>
 
+    <div id="modalNewUser" class="modal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-5">
+                <div class="container">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn-close" onclick="closeModalCreateUser()"></button>
+                    </div>
+                </div>
+
+                <h2>Crear usuario</h2>
+                <p style="font-style: italic;">
+                    Aquí puedes crear un nuevo usuario
+                </p>
+                <input type="text" id="emailRA" placeholder="Ingrese correo usuario">
+                <input type="text" id="contraseñaRA" placeholder="Ingrese contraseña usuario">
+                <input type="number" id="identRA" placeholder="Ingrese numero identidad">
+                <input type="text" id="nameRA" placeholder="Ingrese nombre usuario">
+
+                <div>
+                    <label for="fecha">Selecciona una fecha:</label>
+                    <input type="date" id="dateRA" name="Ingrese fecha de nacimiento">
+                </div>
+
+                <input type="text" id="direccionRA" placeholder="Ingrese dirección usuario">
+                <input type="number" id="telRA" placeholder="Ingrese telefono usuario">
+
+                <div id="error" style="color: red;"></div>
+                <br><br>
+
+                <button class="btn btn-outline-dark" id="btn_register">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalDeleteUser" class="modal">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+            <div class="modal-content p-5">
+                <div class="container">
+                    <div class="d-flex justify-content-end">
+                        <button class="btn-close" onclick="closeModalDeleteUser()"></button>
+                    </div>
+                </div>
+
+                <h2>Borrar Información de usuario</h2>
+                <p style="font-style: italic;">
+                    Aquí puedes eliminar la Información de usuario, hay que aclarar que las credenciales vinculadas a
+                    firebase autentication no se eliminaran, solos los siguientes datos vinculados:
+                </p>
+                <p style="font-style: italic;">
+                    Nombre, identificación, telefono, dirección y fecha de nacimiento.
+                </p>
+                <input type="text" id="emailDU" placeholder="Ingrese correo usuario">
+
+                <div id="error_del" style="color: red;"></div>
+                <br><br>
+
+                <button class="btn btn-outline-dark" id="btn_delete_user_info">Borrar</button>
+            </div>
+        </div>
+    </div>
+
+
 
 
     <script type="module" src="../Services/home.js"></script>
     <script type="module" src="../Services/delete_account.js"></script>
     <script type="module" src="../Services/register_user.js"></script>
+    <script type="module" src="../Services/delete_info_user.js"></script>
 
     <script>
 
-        var modal = document.getElementById("myModal")
-        function openModal() {
-            modal.style.display = "block";
+        var modalCreateUser = document.getElementById("modalNewUser")
+        var modalDeleteUser = document.getElementById("modalDeleteUser")
+        function openModalCreateUser() {
+            modalCreateUser.style.display = "block";
+        }
+        function openModalDeleteUser() {
+            modalDeleteUser.style.display = "block";
         }
 
-        function closeModal() {
-            modal.style.display = "none";
+        function closeModalCreateUser() {
+            modalCreateUser.style.display = "none";
+        }
+        function closeModalDeleteUser() {
+            modalDeleteUser.style.display = "none";
         }
 
-        //verificacion de campos
+        //verificacion de campos create user
         document.getElementById("btn_register").addEventListener("click", async function (event) {
             var identificacion = document.getElementById("identRA").value;
             var nombre = document.getElementById("nameRA").value;
@@ -276,6 +314,37 @@
         });
 
 
+        //verificacion de campos create user
+        document.getElementById("btn_delete_user_info").addEventListener("click", async function (event) {
+
+            var emailD = document.getElementById("emailDU").value;
+
+            var error = "";
+            var errorDelete = document.getElementById("error_del");
+
+            // Limpiar anuncios de errores
+            errorDelete.innerHTML = "";
+
+
+            // Comprobación de campos
+            if (emailD === "") {
+                error += "Todos los campos son obligatorios.<br>";
+            } else if (emailD.indexOf("@") === -1) {
+                error += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
+            }
+
+            // Si hay errores, mostrar los mensajes y evitar el envío del formulario
+            if (error !== "") {
+                console.log("Comprobando campos");
+                if (error !== "") {
+                    errorDelete.innerHTML = error;
+                }
+                event.preventDefault(); // Evita que el formulario se envíe si hay errores
+            } else {
+                window.delete_verificado = true;
+                document.getElementById("btn_delete_user_info").innerText = "Trabajando...";
+            }
+        });
 
     </script>
 
