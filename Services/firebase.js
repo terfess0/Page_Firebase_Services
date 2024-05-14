@@ -23,7 +23,9 @@ import {
     addDoc,
     getDocs,
     query,
-    where
+    where,
+    deleteDoc,
+    doc
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -170,17 +172,21 @@ export const getDataProducts = () =>
 export const getUserEmail = () => {
     var auth2 = getAuth()
     const user2 = auth2.currentUser
-    console.log("Buscando email")
     if (user != null) {
         console.log("Retornando " + user.email)
         return user.email
     } else {
-        console.log("No se encontro email")
-        return "nada"
+        return "null"
     }
 }
 
 //eliminar informacion de usuario (admin)
 export const getDocUser = (email) => {
-    getDocs(query(collection(db, "users"), where("userEmail", "==", email)))
+    const q = query(collection(db, "users"), where("userEmail", "==", email));
+
+    const querySnapshot = getDocs(q);
+    return querySnapshot
+}
+export const deleteDataUser = (idDoc) => {
+    deleteDoc(doc(db, "users", idDoc))
 }
