@@ -17,19 +17,28 @@
         }
 
         .si {
-            background-image: url('../Resource/background_login.jpg');
+            background-image: url('../Resource/banner_military.jpg');
             background-size: cover;
         }
 
+        body {
+            background-color: rgb(169, 197, 199);
+        }
+
+        .capa {
+            background-color: rgba(0, 0, 0, 0.524);
+        }
     </style>
 </head>
 
 <body>
 
     <div class="si p-5 text-white text-center">
-        <h1 id="saludo">Bienvenid@ </h1>
-        <p>Este es el centro de control para recursos fisicos y control de sucursales con integración ecomerce de
-            nuestra empresa.</p>
+        <div class="capa">
+            <h1 id="saludo">Bienvenid@ </h1>
+            <p>Este es el centro de control para recursos fisicos y control de sucursales con integración ecomerce de
+                nuestra empresa.</p>
+        </div>
     </div>
 
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -182,11 +191,13 @@
 
     <div class="mt-5 p-4 bg-dark text-white text-center">
         <p>Footer</p>
+        Imagen de <a
+            href="https://www.freepik.es/vector-gratis/patron-camuflaje-digital-diseno-plano_22628730.htm#page=2&query=pixelado%20militar&position=3&from_view=keyword&track=ais_user&uuid=51b569d3-bd12-422e-9d6f-7750a3d84120">Freepik</a>
     </div>
 
     <div id="modalNewUser" class="modal">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content p-5">
+            <div class="modal-content p-5 bg-success text-light">
                 <div class="container">
                     <div class="d-flex justify-content-end">
                         <button class="btn-close" onclick="closeModalCreateUser()"></button>
@@ -203,24 +214,24 @@
                 <input type="text" id="nameRA" placeholder="Ingrese nombre usuario">
 
                 <div>
-                    <label for="fecha">Selecciona una fecha:</label>
+                    <label for="fecha">Selecciona una fecha nacimiento:</label>
                     <input type="date" id="dateRA" name="Ingrese fecha de nacimiento">
                 </div>
 
                 <input type="text" id="direccionRA" placeholder="Ingrese dirección usuario">
                 <input type="number" id="telRA" placeholder="Ingrese telefono usuario">
 
-                <div id="error" style="color: red;"></div>
+                <div id="error" style="color: rgb(255, 255, 255);"></div>
                 <br><br>
 
-                <button class="btn btn-outline-dark" id="btn_register">Guardar</button>
+                <button class="btn btn-dark" id="btn_register">Guardar</button>
             </div>
         </div>
     </div>
 
     <div id="modalDeleteUser" class="modal">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-            <div class="modal-content p-5">
+            <div class="modal-content p-5 text-light bg-danger">
                 <div class="container">
                     <div class="d-flex justify-content-end">
                         <button class="btn-close" onclick="closeModalDeleteUser()"></button>
@@ -237,10 +248,10 @@
                 </p>
                 <input type="text" id="emailDU" placeholder="Ingrese correo usuario">
 
-                <div id="error_del" style="color: red;"></div>
+                <div id="error_del" style="color: rgb(0, 0, 0);"></div>
                 <br><br>
 
-                <button class="btn btn-outline-danger" id="btn_delete_user_info">Borrar</button>
+                <button class="btn btn-warning" id="btn_delete_user_info">Borrar</button>
             </div>
         </div>
     </div>
@@ -326,7 +337,7 @@
 
             // Comprobación de campos
             if (emailD === "") {
-                error += "Todos los campos son obligatorios.<br>";
+                error += "Debe ingresar un correo para identificar al usuario.<br>";
             } else if (emailD.indexOf("@") === -1) {
                 error += "El correo electrónico no es válido (Use el formato ejemplo@example.com)<br>";
             }
