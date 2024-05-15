@@ -165,7 +165,7 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
-
+//getters
 export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
 
@@ -180,6 +180,10 @@ export const getUserEmail = () => {
     }
 }
 
+export const getDataUsers = () =>
+    getDocs(collection(db, "users"))
+
+
 //eliminar informacion de usuario (admin)
 export const getDocUser = (email) => {
     const q = query(collection(db, "users"), where("userEmail", "==", email));
@@ -190,3 +194,5 @@ export const getDocUser = (email) => {
 export const deleteDataUser = (idDoc) => {
     deleteDoc(doc(db, "users", idDoc))
 }
+
+//---------------------------------------

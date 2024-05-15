@@ -1,12 +1,3 @@
-body {
-  background-image: url("Resource/background_login.jpg");
-  background-size: cover;
-  background-position: center;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 .login-container {
   background-color: rgba(255, 255, 255, 0.8);

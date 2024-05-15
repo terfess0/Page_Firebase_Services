@@ -13,17 +13,26 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <div>
-    <a href="../Templates/home.html">Volver</a>
+    <a class="btn btn-secondary" href="../Templates/home.html">Volver</a>
   </div>
+
+  <style>
+    body {
+      background-image: url("../Resource/background_login.jpg");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+    }
+  </style>
 </head>
 
 <body>
 
-  <div>
-    <h2>Basic Table</h2>
-    <p>Productos Guardados</p>
-    <table class="table">
-      <thead class="table-success">
+  <div class="m-5">
+    <h2 class="text-light">Los productos registrados</h2>
+    <p>Esta es una vista de todos los productos que estan guardados en la base de datos en la nube</p>
+    <table class="table table-responsive table-borderless table-bordered table-hover table-striped">
+      <thead class="table-success p-5">
         <tr>
           <th>Firstname</th>
           <th>Lastname</th>
