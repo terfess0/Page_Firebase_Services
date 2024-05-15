@@ -143,6 +143,10 @@ export const recovery_pass = (email) =>
 export const delete_account = () =>
     deleteUser(getAuth().currentUser)
 
+//recovery usuario en home (logeado)
+export const recoveryUserLog = () =>
+    sendPasswordResetEmail(auth, getAuth().currentUser.email)
+
 //-----------------------------------------------------------------------------------------
 //Metodos database con firestore
 
