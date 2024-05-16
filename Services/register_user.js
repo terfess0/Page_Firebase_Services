@@ -53,6 +53,15 @@ async function register() {
             await addDataUser(ident, name, birthdate, dir, tel, emailInput)
             alert("Los datos de usuario se guardaron.")
 
+            //limpiar campos
+            emailInput.innerText = ""
+            contraseñaInput.innerText = ""
+            ident.innerText = ""
+            name.innerText = ""
+            birthdate.innerText = ""
+            dir.innerText = ""
+            tel.innerText = ""
+
             var modal = document.getElementById("modalNewUser")
             modal.style.display = "none"
 
