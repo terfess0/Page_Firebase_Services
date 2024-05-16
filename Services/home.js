@@ -8,6 +8,7 @@ const sesion = document.getElementById('btn_log_out')
 
 window.addEventListener('DOMContentLoaded', async () => {
     const emailUser = getUserEmail();
+
     const correo = document.getElementById("userEmail");
 
     if (emailUser) {

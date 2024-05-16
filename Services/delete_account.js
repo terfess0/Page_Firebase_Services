@@ -8,14 +8,14 @@ async function deleteAccount() {
     const borrar = await funcion
         .then((borrar) => {
             alert("Tu cuenta se eliminó correctamente. ¡Adiós!")
-            // Redirigir al usuario a una página de salida o agradecimiento
+
             window.location.href = "../index.html"
         })
         .catch((error) => {
-            // Manejar errores
+
             switch (error.code) {
                 case "auth/requires-recent-login":
-                    // Redirigir al usuario a la página de inicio después de volver a autenticarse
+                    
                     alert("Debes volver a autenticarte antes de eliminar tu cuenta.")
                     window.location.href = "../index.html"
                     break
