@@ -37,30 +37,30 @@ async function register() {
     }
 
     if (window.adm_verificado === true) {
-        const emailInput = document.getElementById('emailRA').value
-        const contraseñaInput = document.getElementById('contraseñaRA').value
+        const emailInput = document.getElementById('emailRA')
+        const contraseñaInput = document.getElementById('contraseñaRA')
 
-        //datos user to firebase
-        const ident = document.getElementById("identRA").value
-        const name = document.getElementById("nameRA").value
-        const birthdate = document.getElementById("dateRA").value
-        const dir = document.getElementById("direccionRA").value
-        const tel = document.getElementById("telRA").value
+        // Datos de usuario para Firebase
+        const ident = document.getElementById("identRA")
+        const name = document.getElementById("nameRA")
+        const birthdate = document.getElementById("dateRA")
+        const dir = document.getElementById("direccionRA")
+        const tel = document.getElementById("telRA")
 
         try {
-            const verificar = await registerauth(emailInput, contraseñaInput)
+            const verificar = await registerauth(emailInput.value, contraseñaInput.value)
             alert("El usuario se registró exitosamente.")
-            await addDataUser(ident, name, birthdate, dir, tel, emailInput)
+            await addDataUser(ident.value, name.value, birthdate.value, dir.value, tel.value, emailInput.value)
             alert("Los datos de usuario se guardaron.")
 
-            //limpiar campos
-            emailInput.innerText = ""
-            contraseñaInput.innerText = ""
-            ident.innerText = ""
-            name.innerText = ""
-            birthdate.innerText = ""
-            dir.innerText = ""
-            tel.innerText = ""
+            // Limpiar campos
+            emailInput.value = ""
+            contraseñaInput.value = ""
+            ident.value = ""
+            name.value = ""
+            birthdate.value = ""
+            dir.value = ""
+            tel.value = ""
 
             var modal = document.getElementById("modalNewUser")
             modal.style.display = "none"
@@ -75,6 +75,9 @@ async function register() {
                 alert("Hubo un error, intenta de nuevo más tarde.")
                 console.error(error)
             }
+
+            var modal = document.getElementById("modalNewUser")
+            modal.style.display = "none"
         }
     }
 }
