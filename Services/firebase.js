@@ -174,10 +174,10 @@ export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
 
 export const getUserEmail = () => {
-    var auth2 = getAuth()
-    const user2 = auth2.currentUser
-    if (user != null) {
-        console.log("Retornando " + user.email)
+
+    const user2 = getAuth().currentUser
+    if (user !== null) {
+        console.log("Retornando " + user2.email)
         return user.email
     } else {
         return "null"
@@ -195,8 +195,8 @@ export const getDocUser = (email) => {
     const querySnapshot = getDocs(q);
     return querySnapshot
 }
-export const deleteDataUser = (idDoc) => {
+export const deleteDataUser = (idDoc) => 
     deleteDoc(doc(db, "users", idDoc))
-}
+
 
 //---------------------------------------
