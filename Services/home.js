@@ -3,7 +3,6 @@ import { userState, log_out, getUserEmail } from "../Services/firebase.js";
 userState()
 
 const sesion = document.getElementById('btn_log_out')
-const sesionUser = document.getElementById('btn_log_out_u')
 
 window.addEventListener('DOMContentLoaded', async () => {
     const emailUser = getUserEmail();
@@ -33,5 +32,4 @@ async function cerrarSesion(){
 
 window.addEventListener('DOMContentLoaded', async() =>{
     sesion.addEventListener('click', cerrarSesion)
-    sesionUser.addEventListener('click', cerrarSesion)
 })
