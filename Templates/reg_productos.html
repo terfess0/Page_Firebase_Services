@@ -100,25 +100,37 @@
             <h2>Guardar producto</h2>
             <input type="number" class="form-control" id="Pcodigo" placeholder="Codigo del Producto" required>
 
-            <input type="text" class="form-control" id="Pnombre" placeholder="Nombre del producto"
-                required>
+            <input type="text" class="form-control" id="Pnombre" placeholder="Nombre del producto" required>
 
             <input type="text" class="form-control" id="Pdescripcion" placeholder="Descripcion del producto" required>
 
-            <input type="text" class="form-control" id="Pcantidad" placeholder="Cantidad"
-                required>
+            <input type="text" class="form-control" id="Pcantidad" placeholder="Cantidad" required>
 
             <div id="error" style="color: red;"></div>
             <br>
             <button type="submit" class="btn btn-dark btn-block mt-3" id="btn_reg_product">Guardar Producto</button></a>
             <br>
             <div>
-                <a href="../Templates/home.html">Volver</a>
+                <a href="#" onclick="back()">Volver</a>
             </div>
             <br>
 
         </div>
     </div>
+
+    <script>
+        const referrer = document.referrer;
+        let urlBack = "../Templates/home.html";
+    
+        if (referrer.includes("/home_admin.html")) {
+            urlBack = "../Templates/home_admin.html";
+        }
+    
+        function back() {
+            window.location.href = urlBack;
+        } 
+    </script>
+    
 
 
 
@@ -136,7 +148,7 @@
 
             if (codigo === "" || nombre === "" || descripcion === "" || cantidad === "") {
                 errorEmpty += "Todos los campos son obligatorios.<br>";
-            } 
+            }
 
             // Si hay errores, mostrar los mensajes y evitar el envío del formulario
             if (errorEmpty !== "") {

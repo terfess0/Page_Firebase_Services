@@ -13,7 +13,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <div>
-    <a class="btn btn-secondary" href="../Templates/home.html">Volver</a>
+    <a class="btn btn-secondary" href="#" onclick="back()">Volver</a>
   </div>
 
   <style>
@@ -47,6 +47,19 @@
   </div>
 
   <script type="module" src="../Services/get_products.js"></script>
+
+  <script>
+    const referrer = document.referrer;
+    let urlBack = "../Templates/home.html";
+
+    if (referrer.includes("/home_admin.html")) {
+        urlBack = "../Templates/home_admin.html";
+    }
+
+    function back() {
+        window.location.href = urlBack;
+    } 
+</script>
 </body>
 
 </html>
