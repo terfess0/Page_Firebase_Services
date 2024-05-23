@@ -1,4 +1,4 @@
-import { addCityWithDoc } from "../Services/firebase.js"
+import { addCity } from "../Services/firebase.js"
 
 const action = document.getElementById('regist_city_btn')
 
@@ -13,7 +13,7 @@ async function guardar() {
     } else {
 
         try {
-            await addCityWithDoc(codigo.value, nombre.value, pais.value)
+            await addCity(codigo.value, nombre.value, pais.value)
             alert("Registro exitoso")
             window.location.href = "register_city.html"
         } catch (error){
