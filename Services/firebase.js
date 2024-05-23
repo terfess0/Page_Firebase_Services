@@ -198,7 +198,7 @@ export const getDataUsers = () =>
     getDocs(collection(db, "users"))
 
 export const getRegisterWhenDoc = (codigo) => {
-    const docSnap = getDoc(doc(db, "cities", codigo));
+    getDoc(doc(db, "cities", codigo));
 }
 
 

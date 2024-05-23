@@ -41,7 +41,7 @@ async function leer() {
 
             data.array.forEach(product => {
                 obj.innerHTML = `<table class="table">
-                <tr>${product.data().codigo}</tr>
+                <td>${product.data().codigo}</td>
             
             </table>`
             });
