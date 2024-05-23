@@ -25,7 +25,8 @@ import {
     query,
     where,
     deleteDoc,
-    doc
+    doc,
+    setDoc
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -169,6 +170,14 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
+export const addWithDocName = (codigo, name, country) => {
+    setDoc(doc(db, "cities", codigo), {
+        codigo,
+        name,
+        country
+    });
+}
+
 //getters
 export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
@@ -195,7 +204,7 @@ export const getDocUser = (email) => {
     const querySnapshot = getDocs(q);
     return querySnapshot
 }
-export const deleteDataUser = (idDoc) => 
+export const deleteDataUser = (idDoc) =>
     deleteDoc(doc(db, "users", idDoc))
 
 
