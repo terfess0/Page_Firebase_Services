@@ -1,6 +1,7 @@
 import { addCity, getRegisterWhenDoc } from "../Services/firebase.js"
 
 const action = document.getElementById('regist_city_btn')
+const actionSearch = document.getElementById('get_city_btn')
 
 async function guardar() {
     const codigo = document.getElementById('codigo')
@@ -59,4 +60,5 @@ async function leer() {
 
 window.addEventListener('DOMContentLoaded', async () => {
     action.addEventListener('click', guardar)
+    actionSearch.addEventListener('click', leer)
 })
