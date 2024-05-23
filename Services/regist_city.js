@@ -39,13 +39,16 @@ async function leer() {
             alert("Correcto: " + data)
             const obj = document.getElementById('busqueda')
 
-            data.array.forEach(product => {
-                obj.innerHTML = `<table class="table">
-                <td>${product.data().codigo}</td>
-            
-            </table>`
-            });
+            data.forEach((doc) => {
 
+                obj.innerHTML += `
+                    <tr>
+                    <th scope = "row">${product.data().codigo})</th>
+                    <td>${product.data().nombre}</td>
+                    <td>${product.data().pais}</td>
+                    </tr>
+                    `;
+            });
             limpiarCampos()
         } catch (error) {
             console.error('error :: ' + error)
