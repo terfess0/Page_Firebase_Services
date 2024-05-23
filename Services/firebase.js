@@ -26,7 +26,8 @@ import {
     where,
     deleteDoc,
     doc,
-    setDoc
+    setDoc,
+    getDoc
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -170,7 +171,7 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
-export const addCity = (codigo, name, country) => 
+export const addCity = (codigo, name, country) =>
     setDoc(doc(db, "cities", codigo), {
         codigo,
         name,
@@ -195,6 +196,12 @@ export const getUserEmail = () => {
 
 export const getDataUsers = () =>
     getDocs(collection(db, "users"))
+
+export const getRegisterWhenDoc = (codigo) => {
+    const docRef = doc(db, "cities", codigo);
+    const docSnap = await getDoc(docRef);
+    return docSnap;
+}
 
 
 //eliminar informacion de usuario (admin)

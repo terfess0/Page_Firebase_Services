@@ -1,4 +1,4 @@
-import { addCity } from "../Services/firebase.js"
+import { addCity, getRegisterWhenDoc } from "../Services/firebase.js"
 
 const action = document.getElementById('regist_city_btn')
 
@@ -17,7 +17,36 @@ async function guardar() {
             alert("Registro exitoso")
             window.location.href = "register_city.html"
             limpiarCampos()
-        } catch (error){
+        } catch (error) {
+            console.error('error :: ' + error)
+            alert("Registro fallido")
+        }
+
+    }
+}
+
+async function leer() {
+    const codigo = document.getElementById('codigoLeer')
+
+    if (codigo.value === "") {
+        alert("Debe proporcionar un codigo para la busqueda")
+        codigo.focus()
+    } else {
+
+        try {
+            const data = await getRegisterWhenDoc(codigo.value)
+            alert("Correcto: " + data)
+            const obj = document.getElementById('busqueda')
+
+            data.array.forEach(product => {
+                obj.innerHTML = `<table class="table">
+                <tr>${product.data().codigo}</tr>
+            
+            </table>`
+            });
+
+            limpiarCampos()
+        } catch (error) {
             console.error('error :: ' + error)
             alert("Registro fallido")
         }
@@ -25,6 +54,9 @@ async function guardar() {
     }
 
 }
+
+
+
 window.addEventListener('DOMContentLoaded', async () => {
     action.addEventListener('click', guardar)
 })
