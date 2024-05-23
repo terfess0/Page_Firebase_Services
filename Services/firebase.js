@@ -199,7 +199,7 @@ export const getDataUsers = () =>
 
 export const getRegisterWhenDoc = (codigo) => {
     const docRef = doc(db, "cities", codigo);
-    const docSnap = await getDoc(docRef);
+    const docSnap = getDoc(docRef);
     return docSnap;
 }
 
