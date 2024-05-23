@@ -16,6 +16,7 @@ async function guardar() {
             await addCity(codigo.value, nombre.value, pais.value)
             alert("Registro exitoso")
             window.location.href = "register_city.html"
+            limpiarCampos()
         } catch (error){
             console.error('error :: ' + error)
             alert("Registro fallido")
