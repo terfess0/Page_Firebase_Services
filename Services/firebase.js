@@ -197,9 +197,9 @@ export const getUserEmail = () => {
 export const getDataUsers = () =>
     getDocs(collection(db, "users"))
 
-export const getRegisterWhenDoc = (codigo) => {
+export const getRegisterWhenDoc = (codigo) => 
     getDoc(doc(db, "cities", codigo));
-}
+
 
 
 //eliminar informacion de usuario (admin)
