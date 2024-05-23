@@ -27,7 +27,7 @@ async function guardar() {
 }
 
 async function leer() {
-    const codigo = document.getElementById('codigoLeer')
+    const codigo = document.getElementById('codigo')
 
     if (codigo.value === "") {
         alert("Debe proporcionar un codigo para la busqueda")
