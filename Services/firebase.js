@@ -170,7 +170,7 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
-export const addWithDocName = (codigo, name, country) => {
+export const addCityWithDoc = (codigo, name, country) => {
     setDoc(doc(db, "cities", codigo), {
         codigo,
         name,
