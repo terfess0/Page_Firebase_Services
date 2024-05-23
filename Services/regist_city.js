@@ -18,6 +18,7 @@ async function guardar() {
             window.location.href = "register_city.html"
         } catch (error){
             console.error('error :: ' + error)
+            alert("Registro fallido")
         }
 
     }
