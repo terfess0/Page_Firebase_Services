@@ -200,20 +200,16 @@ export const addCity = (codigo, name, country) =>
 export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
 
-export const getUserEmail = () => {
-
-    const auth2 = getAuth();
-    onAuthStateChanged(auth2, (user) => {
-        if (user) {
-            // User is signed in, see docs for a list of available properties
-            // https://firebase.google.com/docs/reference/js/auth.user
-            return user.uid;
-            // ...
-        } else {
-            // User is signed out
-            // ...
-            return 'no'
-        }
+export const getUserUid = () => {
+    return new Promise((resolve, reject) => {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                resolve(user.uid);
+            } else {
+                resolve('no');
+            }
+        }, reject);
     });
 }
 

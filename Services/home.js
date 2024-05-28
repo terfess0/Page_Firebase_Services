@@ -7,23 +7,23 @@ if (window.is_admin !== true) {
 const sesion = document.getElementById('btn_log_out')
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const emailUser = await getUserEmail();
+    try {
+        const emailUser = await getUserEmail();
+        const correo = document.getElementById("userEmail");
 
-    const correo = document.getElementById("userEmail");
+        if (emailUser !== 'no') {
+            correo.innerHTML = emailUser;
+        } else {
+            correo.innerHTML = "No disponible";
+        }
 
-    if (emailUser) {
-        correo.innerHTML = emailUser;
-    } else {
-        correo.innerHTML = "No disponible";
+        const id = await getUserUid(); // Asegúrate de tener una función similar para obtener el UID
+        console.log("El id de usuario es: " + id);
+
+        sesion.addEventListener('click', cerrarSesion);
+    } catch (error) {
+        console.error("Error obteniendo el email del usuario: ", error);
     }
-
-
-    const id = await getUidUser()
-    console.log("El id de usuario es: " + id)
-
-
-
-    sesion.addEventListener('click', cerrarSesion);
 });
 
 async function cerrarSesion() {
