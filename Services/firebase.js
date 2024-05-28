@@ -97,6 +97,23 @@ export const popup = () => {
         });
 };
 
+export const getUidUser = () => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    if (user !== null) {
+        // The user object has basic properties such as display name, email, etc.
+        const displayName = user.displayName;
+        const email = user.email;
+        const photoURL = user.photoURL;
+        const emailVerified = user.emailVerified;
+
+        // The user's ID, unique to the Firebase project. Do NOT use
+        // this value to authenticate with your backend server, if
+        // you have one. Use User.getToken() instead.
+        return user.uid;
+    }
+}
+
 //enviar correo verificacion registro
 const actionCodeSettings = {
     url: 'https://terfess0.github.io/ApiWebNube/index.html',
@@ -197,7 +214,7 @@ export const getUserEmail = () => {
 export const getDataUsers = () =>
     getDocs(collection(db, "users"))
 
-export const getRegisterWhenDoc = (codigo) => 
+export const getRegisterWhenDoc = (codigo) =>
     getDoc(doc(db, "cities", codigo));
 
 

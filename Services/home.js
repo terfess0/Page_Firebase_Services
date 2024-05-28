@@ -1,4 +1,4 @@
-import { userState, log_out, getUserEmail } from "../Services/firebase.js";
+import { userState, log_out, getUserEmail, getUidUser } from "../Services/firebase.js";
 
 if (window.is_admin !== true) {
     userState()
@@ -7,7 +7,7 @@ if (window.is_admin !== true) {
 const sesion = document.getElementById('btn_log_out')
 
 window.addEventListener('DOMContentLoaded', async () => {
-    const emailUser = getUserEmail();
+    const emailUser = await getUserEmail();
 
     const correo = document.getElementById("userEmail");
 
@@ -16,6 +16,12 @@ window.addEventListener('DOMContentLoaded', async () => {
     } else {
         correo.innerHTML = "No disponible";
     }
+
+
+    const id = await getUidUser()
+    console.log("El id de usuario es: " + id)
+
+
 
     sesion.addEventListener('click', cerrarSesion);
 });
