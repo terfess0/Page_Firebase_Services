@@ -8,7 +8,7 @@ const sesion = document.getElementById('btn_log_out')
 
 window.addEventListener('DOMContentLoaded', async () => {
     try {
-        const emailUser = await getUserEmail();
+        const emailUser = await getUserUid();
         const correo = document.getElementById("userEmail");
 
         if (emailUser !== 'no') {
