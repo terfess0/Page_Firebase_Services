@@ -202,13 +202,19 @@ export const getDataProducts = () =>
 
 export const getUserEmail = () => {
 
-    const user2 = getAuth().currentUser
-    if (user !== null) {
-        console.log("Retornando " + user2.email)
-        return user.email
-    } else {
-        return "null"
-    }
+    const auth2 = getAuth();
+    onAuthStateChanged(auth2, (user) => {
+        if (user) {
+            // User is signed in, see docs for a list of available properties
+            // https://firebase.google.com/docs/reference/js/auth.user
+            return user.uid;
+            // ...
+        } else {
+            // User is signed out
+            // ...
+            return 'no'
+        }
+    });
 }
 
 export const getDataUsers = () =>
