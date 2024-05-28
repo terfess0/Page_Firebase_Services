@@ -25,9 +25,7 @@ import {
     query,
     where,
     deleteDoc,
-    doc,
-    setDoc,
-    getDoc
+    doc
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -96,23 +94,6 @@ export const popup = () => {
             throw error; // Re-lanzar el error para manejarlo en el código que llama a esta función
         });
 };
-
-export const getUidUser = () => {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user !== null) {
-        // The user object has basic properties such as display name, email, etc.
-        const displayName = user.displayName;
-        const email = user.email;
-        const photoURL = user.photoURL;
-        const emailVerified = user.emailVerified;
-
-        // The user's ID, unique to the Firebase project. Do NOT use
-        // this value to authenticate with your backend server, if
-        // you have one. Use User.getToken() instead.
-        return user.uid;
-    }
-}
 
 //enviar correo verificacion registro
 const actionCodeSettings = {
@@ -188,37 +169,23 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
         userEmail: email
     })
 
-export const addCity = (codigo, name, country) =>
-    setDoc(doc(db, "cities", codigo), {
-        codigo,
-        name,
-        country
-    })
-
-
 //getters
 export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
 
-export const getUserUid = () => {
-    return new Promise((resolve, reject) => {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                resolve(user.uid);
-            } else {
-                resolve('no');
-            }
-        }, reject);
-    });
+export const getUserEmail = () => {
+
+    const user2 = getAuth().currentUser
+    if (user !== null) {
+        console.log("Retornando " + user2.email)
+        return user.email
+    } else {
+        return "null"
+    }
 }
 
 export const getDataUsers = () =>
     getDocs(collection(db, "users"))
-
-export const getRegisterWhenDoc = (codigo) =>
-    getDoc(doc(db, "cities", codigo));
-
 
 
 //eliminar informacion de usuario (admin)
@@ -228,7 +195,7 @@ export const getDocUser = (email) => {
     const querySnapshot = getDocs(q);
     return querySnapshot
 }
-export const deleteDataUser = (idDoc) =>
+export const deleteDataUser = (idDoc) => 
     deleteDoc(doc(db, "users", idDoc))
 
 
