@@ -9,7 +9,7 @@ async function delete_data() {
         console.log("Buscando correo para borrar");
         const emailUser = document.getElementById("emailDU").value;
 
-        try {
+        try {  
             const querySnapshot = await getDocUser(emailUser);
 
             if (!querySnapshot.empty) {

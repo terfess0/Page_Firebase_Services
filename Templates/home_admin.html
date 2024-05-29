@@ -22,7 +22,7 @@
         }
 
         body {
-            background-color: rgb(169, 197, 199);
+            background-color: rgb(0, 0, 0);
         }
 
         .capa {
@@ -92,71 +92,31 @@
     </div>
 
 
-    <div class="container mt-5">
-        <div class="row">
-            <div class="col-sm-4">
-                <h2>About Me</h2>
-                <h5>Photo of me:</h5>
-                <div class="fakeimg">
-                    <img src="../Resource/profile.webp" class="fakeimg"><img>
-                </div>
-                <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
-                <h3 class="mt-4">Some Links</h3>
-                <p>Lorem ipsum dolor sit ame.</p>
-                <ul class="nav nav-pills flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Active</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Disabled</a>
-                    </li>
-                </ul>
-                <hr class="d-sm-none">
-            </div>
-            <div class="col-sm-8">
-                <h2>Información del Usuario</h2>
+    <div class="container mt-5 text-secondary">
+        <div class="col-sm-4 text-secondary w-100">
+            <div class="row">
+                <div class="col-6">
+                    <h2>Edita usuarios</h2>
 
-                <div>
-                    <strong>Identificación:</strong>
-                    <span id="userIdentificacion"></span>
                 </div>
-                <div>
-                    <strong>Nombre:</strong>
-                    <span id="userName"></span>
+                <div class="col-4 p-1">
+                    <input id="edtEmail" type="text" class="form-control" placeholder="Correo del usuario">
                 </div>
-                <div>
-                    <strong>Dirección:</strong>
-                    <span id="userDireccion"></span>
+                <div class="col-1 p-1">
+                    <button id="btn_getUser" class="btn btn-success p-1">Buscar</button>
                 </div>
-                <div>
-                    <strong>Teléfono:</strong>
-                    <span id="userTelefono"></span>
-                </div>
-                <div>
-                    <strong>Tipo de Sangre (Rh):</strong>
-                    <span id="userRh"></span>
-                </div>
-                <div>
-                    <strong>Estado Civil:</strong>
-                    <span id="userEstadoCivil"></span>
-                </div>
-                <div>
-                    <strong>Género:</strong>
-                    <span id="userGenero"></span>
-                </div>
-                <div>
-                    <strong>Correo Electrónico:</strong>
-                    <span id="userEmail"></span>
+                <div class="col-1 p-1">
+                    <button id="btn_getAllUser" class="btn btn-success p-1">Ver todos</button>
                 </div>
             </div>
+            <p id="errorMsj" class="text-danger" style="font-family: arabic;"></p>
+            <table id="usuarioData" class="table table-dark table-striped table-bordered table-hover">
+
+            </table>
 
         </div>
+
+    </div>
     </div>
 
     <div class="mt-5 p-4 bg-dark text-white text-center">
@@ -235,6 +195,7 @@
     <script type="module" src="../Services/delete_account.js"></script>
     <script type="module" src="../Services/register_user.js"></script>
     <script type="module" src="../Services/delete_info_user.js"></script>
+    <script type="module" src="../Services/getUserAdmin.js"></script>
 
     <script>
 
@@ -328,6 +289,27 @@
             }
         });
 
+    </script>
+
+    <script>
+        function editInfo(idbtn) {
+            const savebtn = document.getElementById(idbtn)
+            const ind = document.getElementById('userName')
+
+            let campoBusq = document.getElementById('edtEmail')
+            let errormsj = document.getElementById('errorMsj')
+
+            errormsj.innerText = ''
+
+            if (ind.innerText.trim() !== '') {
+                savebtn.style.display = "block"
+
+            } else {
+                campoBusq.focus()
+                errormsj.innerText = 'Primero busca a un usuario por su correo para editarlo'
+
+            }
+        }
     </script>
 
 

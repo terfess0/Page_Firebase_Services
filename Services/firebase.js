@@ -25,7 +25,8 @@ import {
     query,
     where,
     deleteDoc,
-    doc
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -41,7 +42,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
-const auth = getAuth(app);
+export const auth = getAuth(app);
 const user = auth.currentUser;
 export const db = getFirestore(app);
 
@@ -143,10 +144,23 @@ export const recovery_pass = (email) =>
 export const delete_account = () =>
     deleteUser(getAuth().currentUser)
 
+
 //recovery usuario en home (logeado)
 export const recoveryUserLog = () =>
     sendPasswordResetEmail(auth, getAuth().currentUser.email)
 
+// Función para obtener el correo electrónico del usuario actual de manera asíncrona
+export const getUserEmail = () => {
+    return new Promise((resolve, reject) => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                resolve(user.email);
+            } else {
+                reject('No hay usuario autenticado');
+            }
+        });
+    });
+};
 //-----------------------------------------------------------------------------------------
 //Metodos database con firestore
 
@@ -173,29 +187,25 @@ export const addDataUser = (identi, name, birthdate, dir, tel, email) =>
 export const getDataProducts = () =>
     getDocs(collection(db, "productos"))
 
-export const getUserEmail = () => {
-
-    const user2 = getAuth().currentUser
-    if (user !== null) {
-        console.log("Retornando " + user2.email)
-        return user.email
-    } else {
-        return "null"
-    }
-}
 
 export const getDataUsers = () =>
     getDocs(collection(db, "users"))
 
 
 //eliminar informacion de usuario (admin)
-export const getDocUser = (email) => {
-    const q = query(collection(db, "users"), where("userEmail", "==", email));
+export const getDocUser = (email) =>
+    getDocs(query(collection(db, "users"), where("userEmail", "==", email)))
 
-    const querySnapshot = getDocs(q);
-    return querySnapshot
+//editar informacion de usuario (admin)
+export const updateUserInfo = (doce, field, value) => {
+    const updateData = {}
+    updateData[field] = value
+    updateDoc(doc(db, "users", doce), updateData)
 }
-export const deleteDataUser = (idDoc) => 
+
+
+
+export const deleteDataUser = (idDoc) =>
     deleteDoc(doc(db, "users", idDoc))
 
 

@@ -13,7 +13,7 @@
         .fakeimg {
             height: 200px;
             width: 200px;
-            background: #aaa;
+            background: #555353;
         }
 
         .si {
@@ -22,7 +22,7 @@
         }
 
         body {
-            background-color: rgb(169, 197, 199);
+            background-color: rgb(0, 0, 0);
         }
 
         .capa {
@@ -87,13 +87,14 @@
     </div>
 
 
-    <div class="container mt-5">
+    <div class="container mt-5  text-secondary">
         <div class="row">
+        
             <div class="col-sm-4">
                 <h2>About Me</h2>
                 <h5>Photo of me:</h5>
                 <div class="fakeimg">
-                    <img src="../Resource/profile.webp" class="fakeimg"><img>
+                    <img src="../Resource/profile.webp" class="fakeimg rounded"><img>
                 </div>
                 <p>Some text about me in culpa qui officia deserunt mollit anim..</p>
                 <h3 class="mt-4">Some Links</h3>
@@ -114,43 +115,59 @@
                 </ul>
                 <hr class="d-sm-none">
             </div>
-            <div class="col-sm-8">
-                <h2>Información del Usuario</h2>
 
-                <div>
-                    <strong>Identificación:</strong>
-                    <span id="userIdentificacion"></span>
-                </div>
-                <div>
-                    <strong>Nombre:</strong>
-                    <span id="userName"></span>
-                </div>
-                <div>
-                    <strong>Dirección:</strong>
-                    <span id="userDireccion"></span>
-                </div>
-                <div>
-                    <strong>Teléfono:</strong>
-                    <span id="userTelefono"></span>
-                </div>
-                <div>
-                    <strong>Tipo de Sangre (Rh):</strong>
-                    <span id="userRh"></span>
-                </div>
-                <div>
-                    <strong>Estado Civil:</strong>
-                    <span id="userEstadoCivil"></span>
-                </div>
-                <div>
-                    <strong>Género:</strong>
-                    <span id="userGenero"></span>
-                </div>
-                <div>
-                    <strong>Correo Electrónico:</strong>
-                    <span id="userEmail"></span>
-                </div>
+            <div class="col-sm-4 text-secondary w-50">
+                <h2>Tu Información</h2>
+                <table class="table table-dark table-striped table-bordered table-hover">
+                    <tbody>
+                        <tr>
+                            <td><strong>Identificación:</strong></td>
+                            <td id="userIdentificacion"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" onclick="editInfo('userIdentificacion')">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Nombre:</strong></td>
+                            <td id="userName"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" onclick="editInfo('userName')">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Dirección:</strong></td>
+                            <td id="userDireccion"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" onclick="editInfo('userDireccion')">Editar</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Teléfono:</strong></td>
+                            <td id="userTelefono"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" onclick="editInfo('userTelefono')">Editar</button>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cumpleaños:</strong></td>
+                            <td id="userBirthday"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" onclick="editInfo('userBirthday')">Editar</button>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Correo Electrónico:</strong></td>
+                            <td id="userEmail"></td>
+                            <td class="text-center">
+                                <button class="btn btn-primary btn-sm" onclick="editInfo('userEmail')">Editar</button>
+                                
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-
         </div>
     </div>
 
@@ -230,6 +247,7 @@
     <script type="module" src="../Services/home.js"></script>
     <script type="module" src="../Services/delete_account.js"></script>
     <script type="module" src="../Services/recovery_logeado.js"></script>
+    <script type="module" src="../Services/getUserInfo.js"></script>
 
     <script>
 
