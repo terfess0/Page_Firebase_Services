@@ -29,6 +29,11 @@ import {
     updateDoc
 } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
+//storage
+import { 
+    getStorage
+ } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-storage.js";
+
 const firebaseConfig = {
     apiKey: "AIzaSyChViHU9-o0bPiKxVrakSgrrGUBrcBs39M",
     authDomain: "apiweb-a6b44.firebaseapp.com",
@@ -43,6 +48,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
+const storage = getStorage(app);
 const user = auth.currentUser;
 export const db = getFirestore(app);
 
@@ -208,3 +214,5 @@ export const deleteDataUser = (idDoc) =>
 
 
 //---------------------------------------
+
+//unidad de almacenamiento storage
