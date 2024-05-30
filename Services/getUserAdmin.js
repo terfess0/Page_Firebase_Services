@@ -1,4 +1,4 @@
-import { getDocUser, updateUserInfo, getDataUsers } from "../Services/firebase.js";
+import { getDocUser, updateUserInfo, getDataUsers, deleteDataUser } from "../Services/firebase.js";
 
 
 const errorCampo = document.getElementById('errorMsj');
@@ -78,12 +78,13 @@ async function dataUserFields(option) {
                     <td>${doc.data().userDirection}</td>
                     <td>${doc.data().userBirthDate}</td>
                     <td>${doc.data().userEmail}</td>
-                    <td><button class="btn btn-danger">Borrar</button></td>
-                    <td><button class="btn btn-danger">Editar</button></td>
+                    <td><button class="boton1 btn btn-danger">Borrar</button></td>
+                    <td><button class="boton2 btn btn-danger">Editar</button></td>
                 `
 
-            // Añadir evento de clic para el botón de borrar
-            row.querySelector('button').addEventListener('click', () => delete_data(doc.id));
+            row.querySelector('.boton1').addEventListener('click', () => delete_data(doc.id));
+            row.querySelector('.boton2').addEventListener('click', () => update(doc.id, row));
+
 
             consulta.appendChild(row)
         })
@@ -93,6 +94,73 @@ async function dataUserFields(option) {
 
 
 }
+
+
+
+async function updateUser(nameField, value) {
+    try {
+        updateUserInfo(idDocumentoUser, nameField, value)
+        alert("Actualizado correctamente")
+    } catch (error) {
+        console.log("Algo salio mal al editar " + error)
+
+    }
+}
+
+function update(id, row) {
+    const columns = row.getElementsByTagName('td');
+
+    // Convertir los campos de texto en campos de entrada editables
+    for (let i = 0; i < columns.length - 2; i++) { // Excluye los dos últimos botones de acción
+        const value = columns[i].value;
+        columns[i].innerHTML = `<input type="text" value="${value}">`;
+    }
+
+    // Cambiar el botón "Editar" por el botón "Guardar"
+    const editButton = row.querySelector('.boton2');
+    editButton.innerText = 'Guardar';
+    editButton.removeEventListener('click', () => update(id)); // Eliminar el evento anterior
+    editButton.addEventListener('click', () => save(id)); // Agregar el evento para guardar los cambios
+}
+
+async function save(id) {
+    const row = document.getElementById(id);
+    const columns = row.getElementsByTagName('td');
+    const newData = {};
+
+    // Recoger los nuevos datos de los campos de entrada
+    for (let i = 0; i < columns.length - 2; i++) {
+        const input = columns[i].querySelector('input');
+        newData[columns[i].innerText] = input.value;
+    }
+
+    // Actualizar los datos en Firestore
+    try {
+        await updateUserInfo(id, newData);
+        alert("Datos actualizados correctamente");
+    } catch (error) {
+        console.error("Error al actualizar los datos:", error);
+        alert("Hubo un error al actualizar los datos");
+    }
+
+    // Recargar la tabla
+    dataUserFields('todos');
+}
+
+
+// Evento para ejecutar la función cuando el DOM esté completamente cargado
+window.addEventListener("DOMContentLoaded", async () => {
+    const action1 = document.getElementById('btn_getUser')
+    const action2 = document.getElementById('btn_getAllUser')
+
+    action1.addEventListener('click', () => {
+        dataUserFields('uno');
+    });
+
+    action2.addEventListener('click', () => {
+        dataUserFields('todos')
+    })
+})
 
 
 async function delete_data(docUserId) {
@@ -122,54 +190,3 @@ async function delete_data(docUserId) {
         }
     }
 }
-
-
-async function updateUser(nameField, value) {
-
-    try {
-        updateUserInfo(idDocumentoUser, nameField, value)
-        alert("Actualizado correctamente")
-    } catch (error) {
-        console.log("Algo salio mal al editar " + error)
-
-    }
-
-}
-
-
-// Evento para ejecutar la función cuando el DOM esté completamente cargado
-window.addEventListener("DOMContentLoaded", async () => {
-    const action1 = document.getElementById('btn_getUser')
-    const action2 = document.getElementById('btn_getAllUser')
-
-    action1.addEventListener('click', () => {
-        dataUserFields('uno');
-    });
-
-    action2.addEventListener('click', () => {
-        dataUserFields('todos')
-    })
-})
-
-// Seleccionar todos los botones por su clase
-const botones = document.querySelectorAll('.btn');
-
-// Iterar sobre cada botón y asignar un evento clic
-botones.forEach(boton => {
-    boton.addEventListener('click', () => {
-        // Obtener el ID del botón y llamar a la función correspondiente
-        const id = boton.id;
-        var btn = boton;
-        switch (id) {
-            case 'userIdentificacionSave':
-                let idValor1 = 'userIdentification';
-                let campo1 = document.getElementById(idValor1);
-                let nuevoValor1 = campo1.value;
-                updateUser(idValor1, nuevoValor1);
-
-                // Ocultar el botón "Guardar"
-                boton.style.display = 'none';
-                break;
-        }
-    })
-})
