@@ -216,3 +216,4 @@ export const deleteDataUser = (idDoc) =>
 //---------------------------------------
 
 //unidad de almacenamiento storage
+const storagRef = ref(storage);
