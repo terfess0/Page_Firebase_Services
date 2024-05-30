@@ -2,12 +2,12 @@ import { getDocUser, updateUserInfo, getDataUsers, deleteDataUser } from "../Ser
 
 
 const errorCampo = document.getElementById('errorMsj');
+const emailUser = document.getElementById('edtEmail')
 
-var idDocumentoUser = ''
 
 // Función principal para obtener y mostrar los datos del usuario
 async function dataUserFields(option) {
-    const emailUser = document.getElementById('edtEmail')
+
 
     emailUser.addEventListener('input', function () {
         errorCampo.innerText = ''
@@ -65,79 +65,69 @@ async function dataUserFields(option) {
 
 
 
-        //agregar filas de donaciones correspondientes
+        // Agregar filas de datos correspondientes
         querySnapshot.forEach((doc) => {
 
-            idDocumentoUser = doc.id
-            const row = document.createElement('tr')
+            const row = document.createElement('tr');
+            row.setAttribute('id', doc.id);
 
             row.innerHTML = `
-                    <td><strong>${doc.data().userIdentification}</strong></td>
-                    <td>${doc.data().userName}</td>
-                    <td>${doc.data().userPhone}</td>
-                    <td>${doc.data().userDirection}</td>
-                    <td>${doc.data().userBirthDate}</td>
-                    <td>${doc.data().userEmail}</td>
-                    <td><button class="boton1 btn btn-danger">Borrar</button></td>
-                    <td><button class="boton2 btn btn-danger">Editar</button></td>
-                `
+                <td><span class="editable" data-field="userIdentification">${doc.data().userIdentification}</span></td>
+                <td><span class="editable" data-field="userName">${doc.data().userName}</span></td>
+                <td><span class="editable" data-field="userPhone">${doc.data().userPhone}</span></td>
+                <td><span class="editable" data-field="userDirection">${doc.data().userDirection}</span></td>
+                <td><span class="editable" data-field="userBirthDate">${doc.data().userBirthDate}</span></td>
+                <td><span class="editable" data-field="userEmail">${doc.data().userEmail}</span></td>
+                <td><button class="boton1 btn btn-danger">Borrar</button></td>
+                <td><button class="boton2 btn btn-primary">Editar</button></td>
+            `;
 
             row.querySelector('.boton1').addEventListener('click', () => delete_data(doc.id));
             row.querySelector('.boton2').addEventListener('click', () => update(doc.id, row));
 
-
-            consulta.appendChild(row)
-        })
+            consulta.appendChild(row);
+        });
     } catch (error) {
         console.error("Error obteniendo el documento:", error);
     }
-
-
 }
 
-
-
-async function updateUser(nameField, value) {
-    try {
-        updateUserInfo(idDocumentoUser, nameField, value)
-        alert("Actualizado correctamente")
-    } catch (error) {
-        console.log("Algo salio mal al editar " + error)
-
-    }
-}
 
 function update(id, row) {
     const columns = row.getElementsByTagName('td');
 
     // Convertir los campos de texto en campos de entrada editables
     for (let i = 0; i < columns.length - 2; i++) { // Excluye los dos últimos botones de acción
-        const value = columns[i].value;
-        columns[i].innerHTML = `<input type="text" value="${value}">`;
+        const span = columns[i].querySelector('span.editable');
+        const value = span.innerText;
+        const field = span.dataset.field;
+        columns[i].innerHTML = `<input type="text" value="${value}" data-field="${field}">`;
     }
 
     // Cambiar el botón "Editar" por el botón "Guardar"
     const editButton = row.querySelector('.boton2');
     editButton.innerText = 'Guardar';
-    editButton.removeEventListener('click', () => update(id)); // Eliminar el evento anterior
-    editButton.addEventListener('click', () => save(id)); // Agregar el evento para guardar los cambios
+    editButton.removeEventListener('click', () => update(id, row)); // Eliminar el evento anterior
+    editButton.addEventListener('click', () => save(id, row)); // Agregar el evento para guardar los cambios
 }
 
-async function save(id) {
-    const row = document.getElementById(id);
+async function save(id, row) {
     const columns = row.getElementsByTagName('td');
     const newData = {};
 
     // Recoger los nuevos datos de los campos de entrada
     for (let i = 0; i < columns.length - 2; i++) {
         const input = columns[i].querySelector('input');
-        newData[columns[i].innerText] = input.value;
+        const field = input.dataset.field;
+        newData[field] = input.value;
     }
 
     // Actualizar los datos en Firestore
     try {
         await updateUserInfo(id, newData);
         alert("Datos actualizados correctamente");
+        emailUser.value = ''
+
     } catch (error) {
         console.error("Error al actualizar los datos:", error);
         alert("Hubo un error al actualizar los datos");
@@ -170,8 +160,9 @@ async function delete_data(docUserId) {
         const action = deleteDataUser(docUserId)
         const borrar = await action
         alert("Usuario eliminado.");
-        //recargar la página
-        location.reload();
+
+        // Recargar la tabla
+        dataUserFields('todos');
 
 
     } catch (error) {

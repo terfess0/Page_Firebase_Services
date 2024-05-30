@@ -197,9 +197,7 @@ export const getDocUser = (email) =>
     getDocs(query(collection(db, "users"), where("userEmail", "==", email)))
 
 //editar informacion de usuario (admin)
-export const updateUserInfo = (doce, field, value) => {
-    const updateData = {}
-    updateData[field] = value
+export const updateUserInfo = (doce, updateData) => {
     updateDoc(doc(db, "users", doce), updateData)
 }
 

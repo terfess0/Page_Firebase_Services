@@ -3,6 +3,7 @@ import { registerauth, enviarCorreoVerifi, addDataUser } from "../Services/fireb
 const save_auth = document.getElementById('btn_register')
 
 async function register() {
+  
     if (window.verificado === true) {
         const emailInput = document.getElementById('emailR').value
         const contraseñaInput = document.getElementById('contraseñaR').value
@@ -64,6 +65,8 @@ async function register() {
 
             var modal = document.getElementById("modalNewUser")
             modal.style.display = "none"
+
+            document.getElementById("btn_register").innerText = "Guardar"
 
         } catch (error) {
             document.getElementById("btn_register").innerText = "Registrate";

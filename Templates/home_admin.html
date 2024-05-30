@@ -217,6 +217,8 @@
 
         //verificacion de campos create user
         document.getElementById("btn_register").addEventListener("click", async function (event) {
+            document.getElementById("btn_register").innerText = "Guardar";
+            
             var identificacion = document.getElementById("identRA").value;
             var nombre = document.getElementById("nameRA").value;
             var direccion = document.getElementById("direccionRA").value;
