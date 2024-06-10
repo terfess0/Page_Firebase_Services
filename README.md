@@ -5,6 +5,8 @@ Descripción breve del proyecto.
 ## Pagina Resultado
 
 https://terfess0.github.io/Page_Firebase_Services/
+- **Credenciales de admin:** *user:* administrador@admin.com  *contraseña:* 12345678
+- **Credenciales de user:** *user: pollo@gmail.com *contraseña:* 12345678
 
 ## Funcionalidades
 
