@@ -38,19 +38,6 @@ Descripción breve del proyecto.
     ```bash
     git clone https://github.com/terfess0/Page_Firebase_Services.git
     ```
-2. Instala las dependencias necesarias.
-    ```bash
-    npm install       # Si estás utilizando Node.js
-    pip install -r requirements.txt    # Si estás utilizando Python
-    ```
-3. Configura las variables de entorno necesarias (si las hay).
-
-## 🖥️ Uso
-
-1. Ejecuta la aplicación localmente.
-    ```bash
-    npm start       # Si estás utilizando Node.js
-    python app.py   # Si estás utilizando Python
     ```
 2. Accede a la aplicación desde tu navegador web: `http://localhost:puerto` (puerto por defecto: 3000 para Node.js, 5000 para Flask, etc.).
 
